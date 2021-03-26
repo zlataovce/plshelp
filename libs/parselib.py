@@ -8,6 +8,7 @@ class Parse:
         self.config.read('config.ini')
         self.blacklist = self.config['PARSER']['WordIndexBlacklist'].split(",")
         self.errorblacklist = self.config['PARSER']['ErrorBlacklist'].split(",")
+        self.errorwhitelist = self.config['PARSER']['ErrorWhitelist'].split(",")
 
     def analysis(self):
         start_exception_linecnt = False
@@ -42,10 +43,16 @@ class Parse:
                         results["plugins"].append(i.split('] Loading ')[1].rstrip("\n"))
                     except ValueError:
                         continue
-                elif 'generated an exception' in i or "Could not pass event" in i:
-                    results["errors"].append(i.rstrip("\n").replace("\t", ""))
-                    start_exception_linecnt = True
-                    exception_linecnt = 0
+                elif 'generated an exception' in i or "Could not pass event" in i or 'Exception' in i:
+                    try:
+                        for x in self.errorblacklist:
+                            if x in i:
+                                raise ValueError
+                        results["errors"].append(i.rstrip("\n").replace("\t", ""))
+                        start_exception_linecnt = True
+                        exception_linecnt = 0
+                    except ValueError:
+                        continue
                 elif 'Server thread/ERROR' in i:
                     try:
                         for x in self.errorblacklist:
@@ -58,6 +65,10 @@ class Parse:
                     results['reload'] = True
                 elif 'UnsupportedClassVersionError' in i and 'this version of the Java Runtime only recognizes class file versions up to 52.0' in i:
                     results['needs_newer_java'] = True
+                elif 'Server thread/WARN' in i:
+                    for x in self.errorwhitelist:
+                        if x in i:
+                            results["errors"].append(i.rstrip("\n"))
             except AttributeError:
                 continue
         try:
