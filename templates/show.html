@@ -8,24 +8,24 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
 </head>
 <body>
-	<div class="container is-fluid" style="padding-top: 32px;">
+	<div class="container is-fluid" style="padding-top: 32px; padding-bottom: 32px;">
 		<div class="box">
-			<h3 style="padding-bottom: 10px;">Plugins:</h3>
+			<h3 style="padding-bottom: 10px;"><strong>Plugins:</strong></h3>
 			{% for plugin in plugins %}
 			<div style="font-family: monospace, sans-serif; font-size: 12px; font-color: white;">{{plugin}}</div>
 			{% endfor %}
 		</div>
 		<div class="box">
-			<h3 style="padding-bottom: 10px;">Errors: </h3>
+			<h3 style="padding-bottom: 10px;"><strong>Errors:</strong></h3>
 			{% for error in errors %}
 			<div style="font-family: monospace, sans-serif; font-size: 12px;">{{error}}</div>
 			{% endfor %}
 		</div>
 		<div class="box">
-			<div class="subtitle" style="font-size: 16px;">Minecraft Version: {{minecraft_version}}</div>
-			<div class="subtitle" style="font-size: 16px;">Server software: {{server_software}}</div>
-			<div class="subtitle" style="font-size: 16px;">Reloaded: {{reload}}</div>
-			<div class="subtitle" style="font-size: 16px;">Needs newer Java: {{needs_newer_java}}</div>
+			<div class="subtitle" style="font-size: 16px;"><strong>Minecraft Version:</strong> {{minecraft_version}}</div>
+			<div class="subtitle" style="font-size: 16px;"><strong>Server software:</strong> {{server_software}}</div>
+			<div class="subtitle" style="font-size: 16px;"><strong>Reloaded:</strong> {{reload}}</div>
+			<div class="subtitle" style="font-size: 16px;"><strong>Needs newer Java:</strong> {{needs_newer_java}}</div>
 		</div>
 	</div>
 </body>
