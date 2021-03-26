@@ -37,6 +37,8 @@ class Parse:
                         for x in self.blacklist:
                             if x in i:
                                 raise ValueError
+                        if i.split('] Loading ')[1].rstrip("\n") in results["plugins"]:
+                            continue
                         results["plugins"].append(i.split('] Loading ')[1].rstrip("\n"))
                     except ValueError:
                         continue
