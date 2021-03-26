@@ -6,8 +6,8 @@ class Parse:
             self.subject = f.readlines()
         self.config = ConfigParser()
         self.config.read('config.ini')
-        self.blacklist = self.config['PARSER']['Blacklist'].split(",")
-        print(self.blacklist)
+        self.blacklist = self.config['PARSER']['WordIndexBlacklist'].split(",")
+        self.errorblacklist = self.config['PARSER']['ErrorBlacklist'].split(",")
 
     def analysis(self):
         start_exception_linecnt = False
@@ -47,7 +47,13 @@ class Parse:
                     start_exception_linecnt = True
                     exception_linecnt = 0
                 elif 'Server thread/ERROR' in i:
-                    results["errors"].append(i.rstrip("\n"))
+                    try:
+                        for x in self.errorblacklist:
+                            if x in i:
+                                raise ValueError
+                        results["errors"].append(i.rstrip("\n"))
+                    except ValueError:
+                        continue
                 elif '/rl' in i or '/reload' in i:
                     results['reload'] = True
                 elif 'UnsupportedClassVersionError' in i and 'this version of the Java Runtime only recognizes class file versions up to 52.0' in i:
