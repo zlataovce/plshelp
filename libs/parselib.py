@@ -50,8 +50,15 @@ class Parse:
                     results["errors"].append(i.rstrip("\n"))
                 elif '/rl' in i or '/reload' in i:
                     results['reload'] = True
+                elif 'UnsupportedClassVersionError' in i and 'this version of the Java Runtime only recognizes class file versions up to 52.0' in i:
+                    results['needs_newer_java'] = True
             except AttributeError:
                 continue
+        try:
+            if results['needs_newer_java'] is True:
+                pass
+        except KeyError:
+            results['needs_newer_java'] = False
         try:
             if results['reload'] is True:
                 pass
