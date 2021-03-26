@@ -48,6 +48,13 @@ class Parse:
                     exception_linecnt = 0
                 elif 'Server thread/ERROR' in i:
                     results["errors"].append(i.rstrip("\n"))
+                elif '/rl' in i or '/reload' in i:
+                    results['reload'] = True
             except AttributeError:
                 continue
+        try:
+            if results['reload'] is True:
+                pass
+        except KeyError:
+            results['reload'] = False
         return results
