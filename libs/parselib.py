@@ -42,7 +42,7 @@ class Parse:
                         results["plugins"].append(i.split('] Loading ')[1].rstrip("\n"))
                     except ValueError:
                         continue
-                elif 'generated an exception' in i or "could not pass event" in i:
+                elif 'generated an exception' in i or "Could not pass event" in i:
                     results["errors"].append(i.rstrip("\n").replace("\t", ""))
                     start_exception_linecnt = True
                     exception_linecnt = 0
