@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, abort
 from libs.parselib import Parse
 from libs.pastes import Paste
 from json import dumps
@@ -10,7 +10,7 @@ app = Flask('')
 def parse():
     url = request.args.get("url")
     if Paste(url).identify() is False:
-        return {}
+        return abort(400)
     parser = Parse("latest.log")
     data = dumps(parser.analysis(), indent=2)
     remove('latest.log')
