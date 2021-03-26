@@ -43,7 +43,7 @@ class Parse:
                         results["plugins"].append(i.split('] Loading ')[1].rstrip("\n"))
                     except ValueError:
                         continue
-                elif 'generated an exception' in i or "Could not pass event" in i or 'Exception' in i:
+                elif 'generated an exception' in i or "Could not pass event" in i or 'Exception' in i or "Could not load '" in i:
                     try:
                         for x in self.errorblacklist:
                             if x in i:
