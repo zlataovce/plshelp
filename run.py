@@ -2,6 +2,7 @@ from flask import Flask, request
 from libs.parselib import Parse
 from libs.pastes import Paste
 from json import dumps
+from os import remove
 
 app = Flask('')
 
@@ -11,6 +12,8 @@ def parse():
     if Paste(url).identify() is False:
         return {}
     parser = Parse("latest.log")
-    return dumps(parser.analysis(), indent=2)
+    data = dumps(parser.analysis(), indent=2)
+    remove('latest.log')
+    return data
 
 app.run(host="0.0.0.0", port=8080)
