@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Text Upload</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+</head>
+<body>
+	<div class="container is-fluid" style="padding-top: 32px;">
+		<h1 class="title">Content of your logs:</h1>
+		<form action="/showv2" method="post">
+      <textarea id="logfile" name="logfile" class="textarea" placeholder="Paste your latest.log here!" rows="20"></textarea>
+			<p style="padding-bottom: 10px;"></p>
+			<input type="submit" class="button is-link" value="Parse"></input>
+		</form>
+	</div>
+</body>
+</html>
