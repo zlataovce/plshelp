@@ -31,6 +31,7 @@ def show():
     if request.method == "GET":
         index()
     if request.method == "POST":
+        r = requests.get("https://plshelp.mkdev.ml/api/v1?url=" + request.form.get("url"))
         if r.status_code != 400:
             re = r.json()
             return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"])
