@@ -48,7 +48,10 @@ def showv2():
         parser = Parse("latest.log")
         re = parser.analysis()
         remove('latest.log')
-        return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"])
+        try:
+            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"])
+        except KeyError:
+            return "Incomplete logs!", 400
 
 
 app.run(host="0.0.0.0", port=8080)
