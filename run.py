@@ -29,12 +29,20 @@ def index2():
 @app.route("/show", methods=["GET","POST"])
 def show():
     if request.method == "GET":
-        index()
+        if request.args.get("type") == "share":
+            r = requests.get("https://plshelp.mkdev.ml/api/v1?url=" + request.args.get("url"))
+            shareurl = "https://plshelp.mkdev.ml/show?type=share&url=" + request.args.get("url")
+            if r.status_code != 400:
+                re = r.json()
+                return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl)
+            else:
+                return "The paste URL was wrong!", 400
     if request.method == "POST":
         r = requests.get("https://plshelp.mkdev.ml/api/v1?url=" + request.form.get("url"))
+        shareurl = "https://plshelp.mkdev.ml/show?type=share&url=" + request.form.get("url")
         if r.status_code != 400:
             re = r.json()
-            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"])
+            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl)
         else:
             return "The paste URL was wrong!", 400
 
@@ -50,7 +58,7 @@ def showv2():
         re = parser.analysis()
         remove('latest.log')
         try:
-            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"])
+            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url="https://plshelp.mkdev.ml")
         except KeyError:
             return "Incomplete logs!", 400
 

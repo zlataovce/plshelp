@@ -6,9 +6,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Parsed Info</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
+		function copyToClipboard(element) {
+			var $temp = $("<input>");
+			$("body").append($temp);
+			$temp.val($(element).text()).select();
+			document.execCommand("copy");
+			$temp.remove();
+		}
+	</script>
 </head>
 <body>
 	<div class="container is-fluid" style="padding-top: 32px; padding-bottom: 32px;">
+		<div class="box">
+			<h3 style="padding-bottom: 10px;"><strong>plshelp analysis</strong></h3>
+			<p id="sharelink" style="display: none;">{{share_url}}</p>
+			<button class="button is-link" onclick="copyToClipboard('#sharelink')" style="padding-top: 10px;">Copy share link</button>
+		</div>
 		<div class="box">
 			<h3 style="padding-bottom: 10px;"><strong>Plugins:</strong></h3>
 			{% for plugin in plugins %}
