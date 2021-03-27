@@ -6,14 +6,26 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Text Upload</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+	<style media="screen">
+		html, body, .container {
+			background-color: #2f3136;
+		}
+		.textarea {
+			color: #fff;
+			background-color: #2f3136;
+		}
+		.title {
+			color: white;
+		}
+	</style>
 </head>
 <body>
 	<div class="container is-fluid" style="padding-top: 32px;">
 		<h1 class="title">Content of your logs:</h1>
 		<form action="/showv2" method="post">
       <textarea id="logfile" name="logfile" class="textarea" placeholder="Paste your latest.log here!" rows="20"></textarea>
-			<p style="padding-bottom: 10px;"></p>
-			<input type="submit" class="button is-link" value="Parse"></input>
+			<p style="padding-bottom: 10px; background-color: #2f3136;"></p>
+			<input type="submit" class="button is-dark" value="Parse"></input>
 		</form>
 	</div>
 </body>
