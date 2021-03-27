@@ -2,9 +2,13 @@ from flask import Flask, request, abort, Response, render_template
 from libs.parselib import Parse
 from libs.pastes import Paste
 from json import dumps, loads
-from os import remove
+from os import remove, environ
 import requests
 from random import randint
+from pbwrap import Pastebin
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask('')
 
@@ -57,11 +61,14 @@ def showv2():
         filename = "latest-" + str(randint(1, 100)) + ".log"
         with open(filename, "w") as f:
             f.write(request.form.get("logfile"))
+        pb = Pastebin(api_dev_key=environ.get('PASTEBIN_API_KEY'))
+        pasteurl = pb.create_paste(request.form.get("logfile"), api_paste_expire_date="2W", api_paste_name="Upload by plshelp Analysis")
+        shareurl = "https://plshelp.mkdev.ml/show?type=share&url=" + pasteurl
         parser = Parse(filename)
         re = parser.analysis()
         remove(filename)
         try:
-            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url="https://plshelp.mkdev.ml", sbw_wrongshop=re["sbw_wrongshop"])
+            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"])
         except KeyError:
             return "Incomplete logs!", 400
 
