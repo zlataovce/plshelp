@@ -22,7 +22,11 @@
 		<div class="box">
 			<h3 style="padding-bottom: 10px;"><strong>plshelp analysis</strong></h3>
 			<p id="sharelink" style="display: none;">{{share_url}}</p>
-			<button class="button is-link" onclick="copyToClipboard('#sharelink')" style="padding-top: 10px;">Copy share link</button>
+			<p id="pastelink" style="display: none;">{{paste_url}}</p>
+			<p>
+				<button class="button is-link" onclick="copyToClipboard('#sharelink')" style="padding-top: 10px;">Copy analysis link</button>
+				<button class="button is-link" onclick="copyToClipboard('#pastelink')" style="padding-top: 10px;">Copy paste link</button>
+			</p>
 		</div>
 		<div class="box">
 			<h3 style="padding-bottom: 10px;"><strong>Plugins:</strong></h3>
