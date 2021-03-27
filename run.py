@@ -36,7 +36,7 @@ def show():
             shareurl = "https://plshelp.mkdev.ml/show?type=share&url=" + request.args.get("url")
             if r.status_code != 400:
                 re = r.json()
-                return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl)
+                return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"])
             else:
                 return "The paste URL was wrong!", 400
     if request.method == "POST":
@@ -44,7 +44,7 @@ def show():
         shareurl = "https://plshelp.mkdev.ml/show?type=share&url=" + request.form.get("url")
         if r.status_code != 400:
             re = r.json()
-            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl)
+            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"])
         else:
             return "The paste URL was wrong!", 400
 
@@ -61,7 +61,7 @@ def showv2():
         re = parser.analysis()
         remove(filename)
         try:
-            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url="https://plshelp.mkdev.ml")
+            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url="https://plshelp.mkdev.ml", sbw_wrongshop=re["sbw_wrongshop"])
         except KeyError:
             return "Incomplete logs!", 400
 
