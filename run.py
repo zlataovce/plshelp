@@ -4,17 +4,19 @@ from libs.pastes import Paste
 from json import dumps, loads
 from os import remove
 import requests
+from random import randint
 
 app = Flask('')
 
 @app.route('/api/v1')
 def parse():
     url = request.args.get("url")
-    if Paste(url).identify() is False:
+    paster = Paste(url)
+    if paster.identify() is False:
         return abort(400)
-    parser = Parse("latest.log")
+    parser = Parse(paster.filename())
     data = dumps(parser.analysis(), indent=2)
-    remove('latest.log')
+    remove(paster.filename())
     return Response(data, mimetype='application/json')
 
 @app.route("/")
@@ -52,11 +54,12 @@ def showv2():
     if request.method == "GET":
         index2()
     if request.method == "POST":
-        with open("latest.log", "w") as f:
+        filename = "latest-" + str(randint(1, 100)) + ".log"
+        with open(filename, "w") as f:
             f.write(request.form.get("logfile"))
-        parser = Parse("latest.log")
+        parser = Parse(filename)
         re = parser.analysis()
-        remove('latest.log')
+        remove(filename)
         try:
             return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url="https://plshelp.mkdev.ml")
         except KeyError:
