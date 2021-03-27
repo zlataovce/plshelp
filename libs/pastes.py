@@ -24,9 +24,6 @@ class Paste:
         else:
             return False
 
-    def filename(self):
-        return self.filename
-
     def pastegg(self):
         r = requests.get(self.url).content
         soup = BeautifulSoup(r, "html.parser")

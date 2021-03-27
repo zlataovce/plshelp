@@ -14,9 +14,9 @@ def parse():
     paster = Paste(url)
     if paster.identify() is False:
         return abort(400)
-    parser = Parse(paster.filename())
+    parser = Parse(paster.filename)
     data = dumps(parser.analysis(), indent=2)
-    remove(paster.filename())
+    remove(paster.filename)
     return Response(data, mimetype='application/json')
 
 @app.route("/")
