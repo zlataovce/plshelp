@@ -6,14 +6,33 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Main Page</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+	<style media="screen">
+		.container {
+			background-color: #2f3136;
+		}
+		.title, .subtitle {
+			color: white;
+		}
+		.subtitle strong {
+			color: white;
+		}
+		html, body {
+			background-color: #2f3136;
+		}
+    .input {
+			color: #fff;
+			background-color: #2f3136;
+		}
+	</style>
 </head>
 <body>
 	<div class="container is-fluid" style="padding-top: 32px;">
 		<h1 class="title">URL of your paste.gg/pastebin.com link:</h1>
+		<h2 class="subtitle"><strong>New!</strong> Upload your logs directly <a href="/text">here!</a></h2>
 		<form action="/show" method="post">
 			<input type="text" class="input" name="url" id="url" autocomplete="off"></input>
-			<p style="padding-bottom: 10px;"></p>
-			<input type="submit" class="button is-link" value="Parse"></input>
+			<p style="padding-bottom: 10px; background-color: #2f3136;"></p>
+			<input type="submit" class="button is-dark" value="Parse"></input>
 		</form>
 	</div>
 </body>

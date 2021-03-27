@@ -1,38 +1,76 @@
 from flask import Flask, request, abort, Response, render_template
 from libs.parselib import Parse
 from libs.pastes import Paste
-from json import dumps
-from os import remove
+from json import dumps, loads
+from os import remove, environ
 import requests
+from random import randint
+from pbwrap import Pastebin
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask('')
 
 @app.route('/api/v1')
 def parse():
     url = request.args.get("url")
-    if Paste(url).identify() is False:
+    paster = Paste(url)
+    if paster.identify() is False:
         return abort(400)
-    parser = Parse("latest.log")
+    parser = Parse(paster.filename)
     data = dumps(parser.analysis(), indent=2)
-    remove('latest.log')
+    remove(paster.filename)
     return Response(data, mimetype='application/json')
 
 @app.route("/")
 def index():
-	return render_template("index.html")
+    return render_template("index.html")
+
+@app.route("/text")
+def index2():
+    return render_template("textupload.html")
 
 
 @app.route("/show", methods=["GET","POST"])
 def show():
     if request.method == "GET":
-        index()
+        if request.args.get("type") == "share":
+            r = requests.get("https://plshelp.mkdev.ml/api/v1?url=" + request.args.get("url"))
+            shareurl = "https://plshelp.mkdev.ml/show?type=share&url=" + request.args.get("url")
+            if r.status_code != 400:
+                re = r.json()
+                return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"))
+            else:
+                return "The paste URL was wrong!", 400
     if request.method == "POST":
-        r = requests.get("https://plshelp.mkdev.ml/api/v1?url={0}".format(request.form.get("url")))
+        r = requests.get("https://plshelp.mkdev.ml/api/v1?url=" + request.form.get("url"))
+        shareurl = "https://plshelp.mkdev.ml/show?type=share&url=" + request.form.get("url")
         if r.status_code != 400:
             re = r.json()
-            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"])
+            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"))
         else:
             return "The paste URL was wrong!", 400
+
+
+@app.route("/showv2", methods=["GET","POST"])
+def showv2():
+    if request.method == "GET":
+        index2()
+    if request.method == "POST":
+        filename = "latest-" + str(randint(1, 100)) + ".log"
+        with open(filename, "w") as f:
+            f.write(request.form.get("logfile"))
+        pb = Pastebin(api_dev_key=environ.get('PASTEBIN_API_KEY'))
+        pasteurl = pb.create_paste(request.form.get("logfile"), api_paste_expire_date="2W", api_paste_name="Upload by plshelp Analysis")
+        shareurl = "https://plshelp.mkdev.ml/show?type=share&url=" + pasteurl
+        parser = Parse(filename)
+        re = parser.analysis()
+        remove(filename)
+        try:
+            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl)
+        except KeyError:
+            return "Incomplete logs!", 400
 
 
 app.run(host="0.0.0.0", port=8080)

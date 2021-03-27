@@ -43,7 +43,7 @@ class Parse:
                         results["plugins"].append(i.split('] Loading ')[1].rstrip("\n"))
                     except ValueError:
                         continue
-                elif 'generated an exception' in i or "Could not pass event" in i or 'Exception' in i:
+                elif 'generated an exception' in i or "Could not pass event" in i or 'Exception' in i or "Could not load '" in i:
                     try:
                         for x in self.errorblacklist:
                             if x in i:
@@ -69,6 +69,9 @@ class Parse:
                     for x in self.errorwhitelist:
                         if x in i:
                             results["errors"].append(i.rstrip("\n"))
+
+                if 'Wrong shop.yml/shop.groovy configuration!' in i:
+                    results["sbw_wrongshop"] = True
             except AttributeError:
                 continue
         try:
@@ -81,4 +84,9 @@ class Parse:
                 pass
         except KeyError:
             results['reload'] = False
+        try:
+            if results['sbw_wrongshop'] is True:
+                pass
+        except KeyError:
+            results['sbw_wrongshop'] = False
         return results
