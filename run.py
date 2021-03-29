@@ -1,4 +1,4 @@
-from flask import Flask, request, abort, Response, render_template
+from flask import Flask, request, Response, render_template
 from libs.parselib import Parse
 from libs.pastes import Paste
 from json import dumps
@@ -18,7 +18,7 @@ def parse():
     url = request.args.get("url")
     paster = Paste(url)
     if paster.identify() is False:
-        return abort(400)
+        return "Needs URL parameter.", 400
     parser = Parse(paster.filename)
     data = dumps(parser.analysis(), indent=2)
     remove(paster.filename)
