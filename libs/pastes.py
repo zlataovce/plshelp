@@ -4,10 +4,8 @@ from bs4 import BeautifulSoup
 from libs.utils import check_filename
 
 class Paste:
-    '''
-    Identifies a service used to share the logs. Downloads the file from the service.
-    '''
     def __init__(self, url):
+        '''Identifies a service used to share the logs. Downloads the file from the service.'''
         self.url = url
         self.filename = check_filename()
 
