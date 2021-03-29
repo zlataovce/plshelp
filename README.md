@@ -22,9 +22,9 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the req
 pip install -r requirements.txt
 ```
 Modify the domain in the `config.ini` file to your own domain.
-```
+```ini
 [FLASK]
-Domain: https://plshelp.mkdev.ml #Your domain here
+Domain: https://plshelp.mkdev.ml # Your domain here
 ```
 Make sure you are running Python 3.
 ```
