@@ -2,6 +2,7 @@ from configparser import ConfigParser
 
 class Parse:
     def __init__(self, filename):
+        """Parses the minecraft logs and returns the results in a dict."""
         with open(filename, "r") as f:
             self.subject = f.readlines()
         self.config = ConfigParser()
@@ -13,7 +14,7 @@ class Parse:
     def analysis(self):
         start_exception_linecnt = False
         exception_linecnt = 0
-        results = {
+        self.results = {
             "plugins": [],
             "errors": []
         }
@@ -22,7 +23,7 @@ class Parse:
                 if start_exception_linecnt is True:
                     if exception_linecnt <= 6:
                         if "\tat " in i or "java.lang" in i:
-                            results["errors"].append(i.rstrip("\n").replace("\t", ""))
+                            self.results["errors"].append(i.rstrip("\n").replace("\t", ""))
                             exception_linecnt += 1
                             continue
                         else:
@@ -30,17 +31,17 @@ class Parse:
                     else:
                         start_exception_linecnt = False
                 if 'Starting minecraft server version' in i:
-                    results["minecraft_version"] = i.split("Starting minecraft server version ")[1].rstrip("\n")
+                    self.results["minecraft_version"] = i.split("Starting minecraft server version ")[1].rstrip("\n")
                 elif 'This server is running' in i and 'version' in i:
-                    results["server_software"] = i.split(" version ")[1].split(" (MC: ")[0].rstrip("\n")
+                    self.results["server_software"] = i.split(" version ")[1].split(" (MC: ")[0].rstrip("\n")
                 elif '] Loading ' in i and " v" in i:
                     try:
                         for x in self.blacklist:
                             if x in i:
                                 raise ValueError
-                        if i.split('] Loading ')[1].rstrip("\n") in results["plugins"]:
+                        if i.split('] Loading ')[1].rstrip("\n") in self.results["plugins"]:
                             continue
-                        results["plugins"].append(i.split('] Loading ')[1].rstrip("\n"))
+                        self.results["plugins"].append(i.split('] Loading ')[1].rstrip("\n"))
                     except ValueError:
                         continue
                 elif 'generated an exception' in i or "Could not pass event" in i or 'Exception' in i or "Could not load '" in i:
@@ -48,7 +49,7 @@ class Parse:
                         for x in self.errorblacklist:
                             if x in i:
                                 raise ValueError
-                        results["errors"].append(i.rstrip("\n").replace("\t", ""))
+                        self.results["errors"].append(i.rstrip("\n").replace("\t", ""))
                         start_exception_linecnt = True
                         exception_linecnt = 0
                     except ValueError:
@@ -58,35 +59,39 @@ class Parse:
                         for x in self.errorblacklist:
                             if x in i:
                                 raise ValueError
-                        results["errors"].append(i.rstrip("\n"))
+                        self.results["errors"].append(i.rstrip("\n"))
                     except ValueError:
                         continue
                 elif '/rl' in i or '/reload' in i:
-                    results['reload'] = True
+                    self.results['reload'] = True
                 elif 'UnsupportedClassVersionError' in i and 'this version of the Java Runtime only recognizes class file versions up to 52.0' in i:
-                    results['needs_newer_java'] = True
+                    self.results['needs_newer_java'] = True
                 elif 'Server thread/WARN' in i:
                     for x in self.errorwhitelist:
                         if x in i:
-                            results["errors"].append(i.rstrip("\n"))
+                            self.results["errors"].append(i.rstrip("\n"))
 
                 if 'Wrong shop.yml/shop.groovy configuration!' in i:
-                    results["sbw_wrongshop"] = True
+                    self.results["sbw_wrongshop"] = True
             except AttributeError:
                 continue
+        self.check_defaults_bool('needs_newer_java')
+        self.check_defaults_bool('reload')
+        self.check_defaults_bool('sbw_wrongshop')
+        self.check_defaults('minecraft_version', None)
+        self.check_defaults('server_software', None)
+        return self.results
+
+    def check_defaults_bool(self, value):
         try:
-            if results['needs_newer_java'] is True:
+            if self.results[value] is True:
                 pass
         except KeyError:
-            results['needs_newer_java'] = False
+            self.results[value] = False
+
+    def check_defaults(self, value, defaults):
         try:
-            if results['reload'] is True:
+            if self.results[value] is not None:
                 pass
         except KeyError:
-            results['reload'] = False
-        try:
-            if results['sbw_wrongshop'] is True:
-                pass
-        except KeyError:
-            results['sbw_wrongshop'] = False
-        return results
+            self.results[value] = defaults
