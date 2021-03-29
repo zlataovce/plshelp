@@ -4,7 +4,6 @@ from libs.pastes import Paste
 from json import dumps
 from os import remove, environ
 import requests
-from random import randint
 from pbwrap import Pastebin
 from dotenv import load_dotenv
 from libs.utils import check_filename
