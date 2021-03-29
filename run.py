@@ -68,7 +68,7 @@ def showv2():
         with open(filename, "w") as f:
             f.write(request.form.get("logfile"))
         pb = Pastebin(api_dev_key=environ.get('PASTEBIN_API_KEY'))
-        pasteurl = pb.create_paste(request.form.get("logfile"), api_paste_expire_date="2W", api_paste_name="Upload by plshelp Analysis")
+        pasteurl = pb.create_paste(request.form.get("logfile"), api_paste_expire_date="2W", api_paste_name=config['SHARE']['PasteTitle'])
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + pasteurl
         parser = Parse(filename)
         re = parser.analysis()
