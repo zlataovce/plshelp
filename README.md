@@ -1,8 +1,8 @@
 # plshelp
-An api for parsing minecraft server log files, extracts useful information
+An api (and a [website](https://plshelp.mkdev.ml)) for parsing minecraft server log files, extracts useful information
 
 
-https://plshelp.mkdev.ml/v1
+https://plshelp.mkdev.ml/api/v1
 
 
 ## Parameters
