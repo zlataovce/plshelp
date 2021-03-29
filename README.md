@@ -21,7 +21,7 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the req
 ```bash
 pip install -r requirements.txt
 ```
-Modify the domain in the `config.uni` file to your own domain.
+Modify the domain in the `config.ini` file to your own domain.
 ```
 [FLASK]
 Domain: https://plshelp.mkdev.ml #Your domain here
