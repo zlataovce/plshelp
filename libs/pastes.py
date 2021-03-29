@@ -5,11 +5,12 @@ from random import randint
 from json import loads
 from datetime import datetime, timedelta
 import base64
+from libs.utils import check_filename
 
 class Paste:
     def __init__(self, url):
         self.url = url
-        self.filename = "latest-" + str(randint(1, 100)) + ".log"
+        self.filename = check_filename()
 
     def identify(self):
         if self.url is None:

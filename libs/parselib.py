@@ -74,21 +74,21 @@ class Parse:
                     self.results["sbw_wrongshop"] = True
             except AttributeError:
                 continue
-        self.check_bool('needs_newer_java')
-        self.check_bool('reload')
-        self.check_bool('sbw_wrongshop')
-        self.not_none('minecraft_version', None)
-        self.not_none('server_software', None)
+        self.check_defaults_bool('needs_newer_java')
+        self.check_defaults_bool('reload')
+        self.check_defaults_bool('sbw_wrongshop')
+        self.check_defaults('minecraft_version', None)
+        self.check_defaults('server_software', None)
         return self.results
 
-    def check_bool(self, value):
+    def check_defaults_bool(self, value):
         try:
             if self.results[value] is True:
                 pass
         except KeyError:
             self.results[value] = False
 
-    def not_none(self, value, defaults):
+    def check_defaults(self, value, defaults):
         try:
             if self.results[value] is not None:
                 pass
