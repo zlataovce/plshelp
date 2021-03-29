@@ -2,6 +2,7 @@ from configparser import ConfigParser
 
 class Parse:
     def __init__(self, filename):
+        """Parses the minecraft logs and returns the results in a dict."""
         with open(filename, "r") as f:
             self.subject = f.readlines()
         self.config = ConfigParser()
