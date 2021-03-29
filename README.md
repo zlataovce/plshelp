@@ -1,9 +1,44 @@
-# plshelp
-An api (and a [website](https://plshelp.mkdev.ml)) for parsing minecraft server log files, extracts useful information
+# plshelp | created with <3 by zlataovce
 
+pls help is an API (and a [website](https://plshelp.mkdev.ml))  for parsing Minecraft server logs which extracts useful information, e.g Plugins list, plugin / server errors, server version / software, and more! It even has the ability to share your parsed logs with people too! 
 
-https://plshelp.mkdev.ml/api/v1
+## Usage
 
+```python
+Copy your latest.log file in your minecraft server files / or / upload them to paste.gg
 
-## Parameters
- - url: A paste.gg/pastebin paste url
+Click [Parse Logs] to parse!
+
+With a simple UI, you can view all of your info easily and share it too!
+```
+
+## Installation / Self Hosting
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the required dependancies.
+
+```bash
+pip install -r requirements.txt
+```
+Modify the domain in the `config.uni` file to your own domain
+```
+[FLASK]
+Domain: https://plshelp.mkdev.ml #Your domain here
+```
+Make sure you are running Python 3 
+```
+python ––version
+```
+Create a `.env` file that includes the
+```
+PASTEBIN_API_KEY=apikeyfrompastebin
+```
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[GPL 3.0](https://choosealicense.com/licenses/gpl-3.0/)
+
+(readme by Mad <3 uwu)
