@@ -1,5 +1,5 @@
 # plshelp
-created with <3 by zlataovce
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/110d0d83d60144a4bece1eb7a4fef804)](https://www.codacy.com/gh/zlataovce/plshelp/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zlataovce/plshelp&amp;utm_campaign=Badge_Grade)
 
 
 plshelp is an API (and a [website](https://plshelp.mkdev.ml)) for parsing Minecraft server logs which extracts useful information, e.g plugins list, plugin/server errors, server version / software, and more! It even has the ability to share your parsed logs with people too! 
