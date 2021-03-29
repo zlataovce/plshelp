@@ -1,4 +1,7 @@
 # plshelp
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/12e4b512abbd4eab85adb94651e2df64)](https://app.codacy.com/gh/zlataovce/plshelp?utm_source=github.com&utm_medium=referral&utm_content=zlataovce/plshelp&utm_campaign=Badge_Grade_Settings)
+
 created with <3 by zlataovce
 
 
