@@ -77,8 +77,8 @@ class Parse:
         self.check_bool('needs_newer_java')
         self.check_bool('reload')
         self.check_bool('sbw_wrongshop')
-        self.not_none('minecraft_version', "Couldn't be determined")
-        self.not_none('server_software', "Couldn't be determined")
+        self.not_none('minecraft_version', None)
+        self.not_none('server_software', None)
         return self.results
 
     def check_bool(self, value):

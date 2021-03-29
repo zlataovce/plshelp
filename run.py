@@ -1,7 +1,7 @@
 from flask import Flask, request, abort, Response, render_template
 from libs.parselib import Parse
 from libs.pastes import Paste
-from json import dumps, loads
+from json import dumps
 from os import remove, environ
 import requests
 from random import randint
