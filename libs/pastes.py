@@ -1,15 +1,13 @@
 from urllib.request import urlretrieve
 import requests
 from bs4 import BeautifulSoup
-from random import randint
-from json import loads
-from datetime import datetime, timedelta
-import base64
+from libs.utils import check_filename
 
 class Paste:
     def __init__(self, url):
+        """Identifies a service used to share the logs. Downloads the file from the service."""
         self.url = url
-        self.filename = "latest-" + str(randint(1, 100)) + ".log"
+        self.filename = check_filename()
 
     def identify(self):
         if self.url is None:
@@ -21,8 +19,8 @@ class Paste:
             urlretrieve(self.pastegg(), self.filename)
             return True
         elif "https://pastebin.com" in self.url:
-            id = self.url.split("pastebin.com/")[1]
-            urlretrieve("https://pastebin.com/raw/" + id, self.filename)
+            paste_id = self.url.split("pastebin.com/")[1]
+            urlretrieve("https://pastebin.com/raw/" + paste_id, self.filename)
             return True
         else:
             return False

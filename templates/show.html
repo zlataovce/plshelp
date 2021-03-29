@@ -67,10 +67,14 @@
 			<div class="subtitle"><strong>Reloaded:</strong> {{reload}}</div>
 			<div class="subtitle"><strong>Needs newer Java:</strong> {{needs_newer_java}}</div>
 		</div>
-		<div class="box">
-			<h3><strong>ScreamingBedWars extension:</strong></h3>
-			<div class="subtitle" style="font-size: 16px; color: white;"><strong>Wrong shop.yml config:</strong> {{sbw_wrongshop}}</div>
-		</div>
+		{% block body %}
+		{% if sbw_wrongshop %}
+			<div class="box">
+				<h3><strong>ScreamingBedWars extension:</strong></h3>
+				<div class="subtitle" style="font-size: 16px; color: white;"><strong>Wrong shop.yml config:</strong> {{sbw_wrongshop}}</div>
+			</div>
+		{% endif %}
+		{% endblock %}
 	</div>
 </body>
 </html>
