@@ -8,7 +8,7 @@ from pbwrap import Pastebin
 from dotenv import load_dotenv
 from libs.utils import check_filename
 from configparser import ConfigParser
-import concurrent
+import concurrent.futures
 
 load_dotenv()
 
