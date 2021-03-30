@@ -1,5 +1,7 @@
 from configparser import ConfigParser
 
+
+# noinspection PyTypeChecker
 class Parse:
     def __init__(self, filename):
         """Parses the minecraft logs and returns the results in a dict."""
@@ -10,14 +12,14 @@ class Parse:
         self.blacklist = self.config['PARSER']['WordIndexBlacklist'].split(",")
         self.errorblacklist = self.config['PARSER']['ErrorBlacklist'].split(",")
         self.errorwhitelist = self.config['PARSER']['ErrorWhitelist'].split(",")
-
-    def analysis(self):
-        start_exception_linecnt = False
-        exception_linecnt = 0
         self.results = {
             "plugins": [],
             "errors": []
         }
+
+    def analysis(self):
+        start_exception_linecnt = False
+        exception_linecnt = 0
         for i in self.subject:
             try:
                 if start_exception_linecnt is True:
@@ -44,7 +46,8 @@ class Parse:
                         self.results["plugins"].append(i.split('] Loading ')[1].rstrip("\n"))
                     except ValueError:
                         continue
-                elif 'generated an exception' in i or "Could not pass event" in i or 'Exception' in i or "Could not load '" in i:
+                elif 'generated an exception' in i or "Could not pass event" in i or 'Exception' in i or "Could not " \
+                                                                                                         "load '" in i:
                     try:
                         for x in self.errorblacklist:
                             if x in i:
@@ -64,7 +67,8 @@ class Parse:
                         continue
                 elif '/rl' in i or '/reload' in i:
                     self.results['reload'] = True
-                elif 'UnsupportedClassVersionError' in i and 'this version of the Java Runtime only recognizes class file versions up to 52.0' in i:
+                elif 'UnsupportedClassVersionError' in i and 'this version of the Java Runtime only recognizes class ' \
+                                                             'file versions up to 52.0' in i:
                     self.results['needs_newer_java'] = True
                 elif 'Server thread/WARN' in i:
                     for x in self.errorwhitelist:
