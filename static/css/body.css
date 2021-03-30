@@ -21,7 +21,7 @@ a {
 .body-light {
   background-color: white;
   color: white;
- }
+}
 
 .body-dark {
   background-color: #2f3136;
@@ -54,7 +54,8 @@ a {
 }
 
 .onoffswitch {
-  position: relative; width: 90px;
+  position: relative;
+  width: 90px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -81,11 +82,13 @@ a {
   transition: margin 0.3s ease-in 0s;
 }
 
-.onoffswitch-inner:before, .onoffswitch-inner:after {
+.onoffswitch-inner::before,
+.onoffswitch-inner::after {
   display: block;
   float: left;
   width: 50%;
-  height: 30px; padding: 0;
+  height: 30px;
+  padding: 0;
   line-height: 30px;
   font-size: 14px;
   color: white;
@@ -94,18 +97,18 @@ a {
   box-sizing: border-box;
 }
 
-.onoffswitch-inner:before {
+.onoffswitch-inner::before {
   content: "";
   padding-left: 10px;
-  background-color: #FFFFFF;
-  color: #FFFFFF;
+  background-color: #fff;
+  color: #fff;
 }
 
-.onoffswitch-inner:after {
+.onoffswitch-inner::after {
   content: "";
   padding-right: 10px;
   background-color: #22262b;
-  color: #999999;
+  color: #999;
   text-align: right;
 }
 
@@ -113,12 +116,12 @@ a {
   display: block;
   width: 22px;
   margin: 6px;
-  background: #FFFFFF;
+  background: #fff;
   position: absolute;
   top: 0;
   bottom: 0;
   right: 56px;
-  border: 2px solid #999999;
+  border: 2px solid #999;
   border-radius: 20px;
   transition: all 0.3s ease-in 0s;
 }
@@ -128,7 +131,7 @@ a {
 }
 
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-  right: 0px;
+  right: 0;
 }
 
 .card-dark {

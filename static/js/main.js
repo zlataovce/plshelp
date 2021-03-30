@@ -9,31 +9,31 @@ const toggleClass =  (el, cls) => {
 };
 
 function DarkModeIndex() {
-    var footer = document.getElementById("footer")
-    footer.classList.toggle("footer-dark")
+    var footer = document.getElementById("footer");
+    footer.classList.toggle("footer-dark");
 
-    toggleClass(document.getElementById('navbar'), ['bg-dark', 'navbar-dark']);
-    
-    toggleClass(document.getElementById("body"), ['body-dark']);
-    toggleClass(document.getElementById("darkmode"), ['body-dark']);
-    toggleClass(document.getElementById("title"), ['title-dark']);
-    toggleClass(document.getElementById("parse"), ['btn-primary']);
-    toggleClass(document.getElementById('container'), ['container-dark']);
-    toggleClass(document.getElementById("subtitle"), ['subtitle-dark']);
+    toggleClass(document.getElementById("navbar"), ["bg-dark", "navbar-dark"]);
+
+    toggleClass(document.getElementById("body"), ["body-dark"]);
+    toggleClass(document.getElementById("darkmode"), ["body-dark"]);
+    toggleClass(document.getElementById("title"), ["title-dark"]);
+    toggleClass(document.getElementById("parse"), ["btn-primary"]);
+    toggleClass(document.getElementById("container"), ["container-dark"]);
+    toggleClass(document.getElementById("subtitle"), ["subtitle-dark"]);
   }
 
 
 function DarkModeShow() {
-    var footer = document.getElementById('footer')
-    footer.classList.toggle("footer-dark")
+    var footer = document.getElementById("footer");
+    footer.classList.toggle("footer-dark");
 
-    toggleClass(document.getElementById('navbar'), ['bg-dark', 'navbar-dark']);
-    toggleClass(document.getElementById("info1"), ['subtitle-dark']);
-    toggleClass(document.getElementById('info2'), ['subtitle-dark']);
-    toggleClass(document.getElementById('info3'), ['subtitle-dark']);
-    toggleClass(document.getElementById('info4'), ['subtitle-dark']);
-    toggleClass(document.getElementById("error"), ['error-dark']);
-    toggleClass(document.getElementById('body'), ['body-dark']);
+    toggleClass(document.getElementById("navbar"), ["bg-dark", "navbar-dark"]);
+    toggleClass(document.getElementById("info1"), ["subtitle-dark"]);
+    toggleClass(document.getElementById("info2"), ["subtitle-dark"]);
+    toggleClass(document.getElementById("info3"), ["subtitle-dark"]);
+    toggleClass(document.getElementById("info4"), ["subtitle-dark"]);
+    toggleClass(document.getElementById("error"), ["error-dark"]);
+    toggleClass(document.getElementById("body"), ["body-dark"]);
     document.getElementById("card1").style.color = "#FFFFFF";
     document.getElementById("card1").style.backgroundColor = "#36393f";
     document.getElementById("card2").style.color = "#FFFFFF";
