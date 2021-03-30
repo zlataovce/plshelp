@@ -14,7 +14,7 @@ function DarkModeIndex() {
 
     toggleClass(document.getElementById('navbar'), ['bg-dark', 'navbar-dark']);
     
-    toggleClass(document.getElementById('body'), ['body-dark']);
+    toggleClass(document.getElementById("body"), ['body-dark']);
     toggleClass(document.getElementById("darkmode"), ['body-dark']);
     toggleClass(document.getElementById("title"), ['title-dark']);
     toggleClass(document.getElementById('parse'), ['btn-primary']);
