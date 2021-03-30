@@ -43,7 +43,7 @@ def show():
             shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.args.get("url")
             if r.status_code != 400:
                 re = r.json()
-                return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"))
+                return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url", domain=config['FLASK']['Domain']))
             else:
                 return "The paste URL was wrong!", 400
     if request.method == "POST":
@@ -51,11 +51,15 @@ def show():
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.form.get("url")
         if r.status_code != 400:
             re = r.json()
-            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"))
+            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"), domain=config['FLASK']['Domain'])
         else:
             return "The paste URL was wrong!", 400
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+# note that we set the 404 status explicitly
+    return render_template('404.html'), 404
 @app.route("/showv2", methods=["GET","POST"])
 def showv2():
     config = ConfigParser()
@@ -73,7 +77,7 @@ def showv2():
         re = parser.analysis()
         remove(filename)
         try:
-            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl)
+            return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl, domain=config['FLASK']['Domain'])
         except KeyError:
             return "Incomplete logs!", 400
 

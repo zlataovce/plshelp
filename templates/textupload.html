@@ -1,32 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Text Upload</title>
+	<script type=text/javascript src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/body.css') }}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
-	<style media="screen">
-		html, body, .container {
-			background-color: #2f3136;
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
+		function copyToClipboard(element) {
+			var $temp = $("<input>");
+			$("body").append($temp);
+			$temp.val($(element).text()).select();
+			document.execCommand("copy");
+			$temp.remove();
 		}
-		.textarea {
-			color: #fff;
-			background-color: #2f3136;
+	</script>
+	<style>
+		.subtitle-light {
+			font-size: 16px;
 		}
-		.title {
+
+		.subtitle-light strong {
+			font-size: 16px;
+		}
+
+		.subtitle-dark {
+			font-size: 16px;
 			color: white;
+		}
+
+		.subtitle-dark strong {
+			font-size: 16px;
+			color: white;
+		}
+
+		.error-light {
+			font-family: monospace, sans-serif;
+			font-size: 12px;
+		}
+
+		.error-dark {
+			font-family: monospace, sans-serif;
+			font-size: 12px;
+			color: rgb(255, 255, 255);
+		}
+
+		h2 {
+			font-size: 20px;
+		}
+
+		.body-dark body {
+			background-color: #2f3136;
 		}
 	</style>
 </head>
+
 <body>
-	<div class="container is-fluid" style="padding-top: 32px;">
-		<h1 class="title">Content of your logs:</h1>
-		<form action="/showv2" method="post">
-      <textarea id="logfile" name="logfile" class="textarea" placeholder="Paste your latest.log here!" rows="20"></textarea>
-			<p style="padding-bottom: 10px; background-color: #2f3136;"></p>
-			<input type="submit" class="button is-dark" value="Parse"></input>
-		</form>
+	<div id="body">
+		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<a id="text" class="navbar-brand ml-2" href="{{ domain }}">plshelp</a>
+				<div class="onoffswitch">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
+						tabindex="0" checked>
+					<label class="onoffswitch-label" for="myonoffswitch" onclick="DarkModeShow()">
+						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
+				</div>
+			</div>
+		</nav>
+		<div id="card-background" class="container rounded" style="padding-top: 32px; padding-bottom: 32px;">
+			<div class="container is-fluid" style="padding-top: 32px;">
+				<h1 class="title">Content of your logs:</h1>
+				<form action="/showv2" method="post">
+			  <textarea id="logfile" name="logfile" class="textarea" placeholder="Paste your latest.log here!" rows="20"></textarea>
+					<p style="padding-bottom: 10px; background-color: #2f3136;"></p>
+					<input type="submit" class="button is-dark" value="Parse"></input>
+				</form>
+			</div>
+		<footer id="footer" class="footer-light" style="position: fixed;">
+			<p class="mt-2">
+				Made with ❤️ by <a href="https://github.com/zlataovce">zlataovce</a>
+			</p>
+		</footer>
 	</div>
+
 </body>
+
 </html>
