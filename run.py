@@ -1,4 +1,3 @@
-  
 from flask import Flask, request, Response, render_template
 from libs.parselib import Parse
 from libs.pastes import Paste
