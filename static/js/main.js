@@ -32,7 +32,7 @@ function DarkModeShow() {
     toggleClass(document.getElementById('info2'), ['subtitle-dark']);
     toggleClass(document.getElementById('info3'), ['subtitle-dark']);
     toggleClass(document.getElementById('info4'), ['subtitle-dark']);
-    toggleClass(document.getElementById('error'), ['error-dark']);
+    toggleClass(document.getElementById("error"), ['error-dark']);
     toggleClass(document.getElementById('body'), ['body-dark']);
     document.getElementById("card1").style.color = "#FFFFFF";
     document.getElementById("card1").style.backgroundColor = "#36393f";
