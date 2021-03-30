@@ -14,6 +14,11 @@ load_dotenv()
 
 app = Flask('')
 
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('templates/404.html', domain=config['FLASK']['Domain']), 404
+
 
 def upload_paste_thread(text):
     config = ConfigParser()
@@ -59,7 +64,7 @@ def show():
                 return render_template("show.html", plugins=re["plugins"], errors=re["errors"],
                                        minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                        reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                       sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"))
+                                       sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"), domain=config['FLASK']['Domain'])
             else:
                 return "The paste URL was wrong!", 400
     if request.method == "POST":
@@ -70,7 +75,7 @@ def show():
             return render_template("show.html", plugins=re["plugins"], errors=re["errors"],
                                    minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"))
+                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"), domain=config['FLASK']['Domain'])
         else:
             return "The paste URL was wrong!", 400
 
@@ -96,7 +101,7 @@ def showv2():
             return render_template("show.html", plugins=re["plugins"], errors=re["errors"],
                                    minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl)
+                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl, domain=config['FLASK']['Domain'])
         except KeyError:
             return "Incomplete logs!", 400
 
