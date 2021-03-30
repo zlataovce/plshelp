@@ -8,10 +8,18 @@ from pbwrap import Pastebin
 from dotenv import load_dotenv
 from libs.utils import check_filename
 from configparser import ConfigParser
+import concurrent
 
 load_dotenv()
 
 app = Flask('')
+
+def upload_paste_thread(text):
+    config = ConfigParser()
+    config.read('config.ini')
+    pb = Pastebin(api_dev_key=environ.get('PASTEBIN_API_KEY'))
+    pasteurl = pb.create_paste(text, api_paste_expire_date=config['SHARE']['PasteExpire'], api_paste_name=config['SHARE']['PasteTitle'])
+    return pasteurl
 
 @app.route('/api/v1')
 def parse():
@@ -66,11 +74,12 @@ def showv2():
         filename = check_filename()
         with open(filename, "w") as f:
             f.write(request.form.get("logfile"))
-        pb = Pastebin(api_dev_key=environ.get('PASTEBIN_API_KEY'))
-        pasteurl = pb.create_paste(request.form.get("logfile"), api_paste_expire_date=config['SHARE']['PasteExpire'], api_paste_name=config['SHARE']['PasteTitle'])
-        shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + pasteurl
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            thread = executor.submit(upload_paste_thread, request.form.get("logfile"))
         parser = Parse(filename)
         re = parser.analysis()
+        pasteurl = thread.result()
+        shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + pasteurl
         remove(filename)
         try:
             return render_template("show.html", plugins=re["plugins"], errors=re["errors"], minecraft_version=re["minecraft_version"], server_software=re["server_software"], reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl, sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl)
