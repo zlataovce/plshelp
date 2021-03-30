@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Parsed Info</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+	<script type=text/javascript src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/body.css') }}">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 		function copyToClipboard(element) {
@@ -16,65 +20,123 @@
 			$temp.remove();
 		}
 	</script>
-	<style media="screen">
-		strong {
-			font-weight: bold;
-			color: white;
+	<style>
+		.subtitle-light {
+			font-size: 16px;
 		}
-		.subtitle {
+
+		.subtitle-light strong {
+			font-size: 16px;
+		}
+
+		.subtitle-dark {
 			font-size: 16px;
 			color: white;
 		}
-		.subtitle strong {
+
+		.subtitle-dark strong {
 			font-size: 16px;
 			color: white;
 		}
-		h3 {
-			padding-bottom: 10px;
-			color: white;
+
+		.error-light {
+			font-family: monospace, sans-serif;
+			font-size: 12px;
 		}
-		.box {
-			background-color: #36393f;
+
+		.error-dark {
+			font-family: monospace, sans-serif;
+			font-size: 12px;
+			color: rgb(255, 255, 255);
+		}
+
+		h2 {
+			font-size: 20px;
+		}
+
+		.body-dark body {
+			background-color: #2f3136;
 		}
 	</style>
 </head>
+
 <body>
-	<div class="container is-fluid" style="padding-top: 32px; padding-bottom: 32px; background-color: #2f3136;">
-		<div class="box">
-			<h3><strong>plshelp analysis</strong></h3>
-			<p id="sharelink" style="display: none;">{{share_url}}</p>
-			<p id="pastelink" style="display: none;">{{paste_url}}</p>
-			<p>
-				<button class="button is-dark" onclick="copyToClipboard('#sharelink')" style="padding-top: 10px;">Copy analysis link</button>
-				<button class="button is-dark" onclick="copyToClipboard('#pastelink')" style="padding-top: 10px;">Copy paste link</button>
-			</p>
-		</div>
-		<div class="box">
-			<h3><strong>Plugins:</strong></h3>
-			{% for plugin in plugins %}
-			<div style="font-family: monospace, sans-serif; font-size: 12px; color: white;">{{plugin}}</div>
-			{% endfor %}
-		</div>
-		<div class="box">
-			<h3><strong>Errors:</strong></h3>
-			{% for error in errors %}
-			<div style="font-family: monospace, sans-serif; font-size: 12px; color: white;">{{error}}</div>
-			{% endfor %}
-		</div>
-		<div class="box">
-			<div class="subtitle"><strong>Minecraft Version:</strong> {{minecraft_version}}</div>
-			<div class="subtitle"><strong>Server software:</strong> {{server_software}}</div>
-			<div class="subtitle"><strong>Reloaded:</strong> {{reload}}</div>
-			<div class="subtitle"><strong>Needs newer Java:</strong> {{needs_newer_java}}</div>
+	<div id="body">
+		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<a id="text" class="navbar-brand ml-2" href="{{ domain }}">plshelp</a>
+				<div class="onoffswitch">
+					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
+						tabindex="0" checked>
+					<label class="onoffswitch-label" for="myonoffswitch" onclick="DarkModeShow()">
+						<span class="onoffswitch-inner"></span>
+						<span class="onoffswitch-switch"></span>
+					</label>
+				</div>
+			</div>
+		</nav>
+		<div id="card-background" class="container rounded" style="padding-top: 32px; padding-bottom: 32px;">
+			<div id="card1" class="card w-100 card-box">
+				<div class="card-body shadow">
+					<h2 id="title"><strong>plshelp analysis</strong></h2>
+					<div class="mt-3">
+						<p id="sharelink" style="display: none;">{{share_url}}</p>
+						<p id="pastelink" style="display: none;">{{paste_url}}</p>
+					</div>
+					<p>
+						<button class="btn btn-dark" onclick="copyToClipboard('#sharelink')"
+							style="padding-top: 10px;">Copy analysis link</button>
+						<button class="btn btn-dark" onclick="copyToClipboard('#pastelink')"
+							style="padding-top: 10px;">Copy paste link</button>
+					</p>
+				</div>
+			</div>
+			<div id="card2" class="card w-100 mt-4">
+				<div class="card-body shadow">
+					<h2 id="title" class="mb-2"><strong>Plugins</strong></h2>
+					{% for plugin in plugins %}
+					<div style="font-family: monospace, sans-serif; font-size: 12px;">{{plugin}}</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div id="card3" class="card w-100 mt-4">
+				<div class="card-body shadow errors-light">
+					<h2 id="title" class="mb-2"><strong>Errors:</strong></h2>
+					{% for error in errors %}
+					<div id="error" class="error-light">{{error}}</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div id="card4" class="card w-100 mt-4">
+				<div class="card-body shadow errors-light">
+					<h2 id="title"><strong>Other Info:</strong></h2>
+					<div id="info1" class="subtitle-light"><strong>Minecraft Version:</strong> {{minecraft_version}}
+					</div>
+					<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}}</div>
+					<div id="info3" class="subtitle-light"><strong>Reloaded:</strong> {{reload}}</div>
+					<div id="info4" class="subtitle-light"><strong>Needs newer Java:</strong> {{needs_newer_java}}</div>
+				</div>
+			</div>
 		</div>
 		{% block body %}
 		{% if sbw_wrongshop %}
-			<div class="box">
-				<h3><strong>ScreamingBedWars extension:</strong></h3>
-				<div class="subtitle" style="font-size: 16px; color: white;"><strong>Wrong shop.yml config:</strong> {{sbw_wrongshop}}</div>
+		<div id="card5" class="card w-100 mt-4">
+			<div class="card-body shadow errors-light">
+				<h2 id="title"><strong>ScreamingBedWars extension:</strong></h2>
+				<div class="subtitle" style="font-size: 16px; color: black;"><strong>Wrong shop.yml config:</strong>
+					{{sbw_wrongshop}}</div>
 			</div>
+		</div>
 		{% endif %}
 		{% endblock %}
+		<br></br>
+		<footer id="footer" class="footer-light" style="position: fixed;">
+			<p class="mt-2">
+				Made with ❤️ by <a href="https://github.com/zlataovce">zlataovce</a>
+			</p>
+		</footer>
 	</div>
+
 </body>
+
 </html>

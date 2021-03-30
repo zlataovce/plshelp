@@ -1,0 +1,107 @@
+a {
+  text-decoration: none !important;
+}
+
+.content-wrap {
+  padding-bottom: 2.5rem;    /* Footer height */
+}
+
+.margin {
+  margin-left: 20px;
+}
+
+.container-dark {
+  background-color: #2f3136;
+}
+
+.url-box {
+  width: 50%;
+}
+
+.body-light {
+     background-color: white;
+     color: white;
+ }
+
+.body-dark {
+    background-color: #2f3136;
+    color: white;
+}
+
+.footer-light {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;            
+  background-color: #f8f9fa;
+  text-align: center;
+  color: black;
+}
+
+.footer-dark {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;            
+  background-color: #212529;
+  text-align: center;
+  color: white;
+}
+
+.title-dark {
+  color: white;
+  background-color: #2f3136;
+}
+
+.onoffswitch {
+  position: relative; width: 90px;
+  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.onoffswitch-label {
+  display: block; overflow: hidden; cursor: pointer;
+  border: 2px solid #afafaf; border-radius: 20px;
+}
+.onoffswitch-inner {
+  display: block; width: 200%; margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+  display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+  font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+  box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+  content: "";
+  padding-left: 10px;
+  background-color: #FFFFFF; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+  content: "";
+  padding-right: 10px;
+  background-color: #22262b; color: #999999;
+  text-align: right;
+}
+.onoffswitch-switch {
+  display: block; width: 22px; margin: 6px;
+  background: #FFFFFF;
+  position: absolute; top: 0; bottom: 0;
+  right: 56px;
+  border: 2px solid #999999; border-radius: 20px;
+  transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px; 
+}
+
+.card-dark {
+  color: white;
+  background-color: #292b2f;
+}
