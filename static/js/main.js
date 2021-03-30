@@ -9,7 +9,7 @@ const toggleClass =  (el, cls) => {
 };
 
 function DarkModeIndex() {
-    var footer = document.getElementById('footer')
+    var footer = document.getElementById("footer")
     footer.classList.toggle("footer-dark")
 
     toggleClass(document.getElementById('navbar'), ['bg-dark', 'navbar-dark']);
