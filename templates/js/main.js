@@ -12,7 +12,7 @@ function toggleTheme() {
     var footer = document.getElementById('footer')
     footer.classList.toggle("footer-dark")
 
-    toggleClass(document.getElementById('navbar'), ['bg-dark', 'navbar-dark']);
+    toggleClass(document.getElementById("navbar"), ['bg-dark', 'navbar-dark']);
     
     toggleClass(document.getElementById("body"), ['body-dark']);
     toggleClass(document.getElementById('darkmode'), ['body-dark']);
