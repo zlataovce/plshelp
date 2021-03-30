@@ -28,7 +28,7 @@ function DarkModeShow() {
     footer.classList.toggle("footer-dark")
 
     toggleClass(document.getElementById('navbar'), ['bg-dark', 'navbar-dark']);
-    toggleClass(document.getElementById('info1'), ['subtitle-dark']);
+    toggleClass(document.getElementById("info1"), ['subtitle-dark']);
     toggleClass(document.getElementById('info2'), ['subtitle-dark']);
     toggleClass(document.getElementById('info3'), ['subtitle-dark']);
     toggleClass(document.getElementById('info4'), ['subtitle-dark']);
