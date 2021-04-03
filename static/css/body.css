@@ -135,6 +135,6 @@ a {
 }
 
 .card-dark {
-  color: white;
-  background-color: #292b2f;
+  color: #fff;
+  background-color: #2f3136 !important;
 }

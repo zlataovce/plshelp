@@ -40,24 +40,9 @@ function DarkModeShow() {
     toggleClass(document.getElementById("body"), ["body-dark"]);
     toggleClass(document.getElementById("spacer"), ["body-dark"]);
     toggleClass(document.getElementById("title"), ["title-dark"]);
-    if (document.getElementById("card1") !== null) {
-      document.getElementById("card1").style.color = "#FFFFFF";
-      document.getElementById("card1").style.backgroundColor = "#36393f";
-    }
-    if (document.getElementById("card2") !== null) {
-      document.getElementById("card2").style.color = "#FFFFFF";
-      document.getElementById("card2").style.backgroundColor = "#36393f";
-    }
-    if (document.getElementById("card3") !== null) {
-      document.getElementById("card3").style.color = "#FFFFFF";
-      document.getElementById("card3").style.backgroundColor = "#36393f";
-    }
-    if (document.getElementById("card4") !== null) {
-      document.getElementById("card4").style.color = "#FFFFFF";
-      document.getElementById("card4").style.backgroundColor = "#36393f";
-    }
-    if (document.getElementById("card5") !== null) {
-      document.getElementById("card5").style.color = "#FFFFFF";
-      document.getElementById("card5").style.backgroundColor = "#36393f";
-    }
+    toggleClass(document.getElementById("card1"), ["card-dark"]);
+    toggleClass(document.getElementById("card2"), ["card-dark"]);
+    toggleClass(document.getElementById("card3"), ["card-dark"]);
+    toggleClass(document.getElementById("card4"), ["card-dark"]);
+    toggleClass(document.getElementById("card5"), ["card-dark"]);
 }
