@@ -38,22 +38,26 @@ function DarkModeShow() {
     toggleClass(document.getElementById("info4"), ["subtitle-dark"]);
     toggleClass(document.getElementById("error"), ["error-dark"]);
     toggleClass(document.getElementById("body"), ["body-dark"]);
-    document.getElementById("card1").style.color = "#FFFFFF";
-    document.getElementById("card1").style.backgroundColor = "#36393f";
-    document.getElementById("card2").style.color = "#FFFFFF";
-    document.getElementById("card2").style.backgroundColor = "#36393f";
-    document.getElementById("card3").style.color = "#FFFFFF";
-    document.getElementById("card3").style.backgroundColor = "#36393f";
-    document.getElementById("card4").style.color = "#FFFFFF";
-    document.getElementById("card4").style.backgroundColor = "#36393f";
+    toggleClass(document.getElementById("spacer"), ["body-dark"]);
+    toggleClass(document.getElementById("title"), ["title-dark"]);
+    if (document.getElementById("card1") !== null) {
+      document.getElementById("card1").style.color = "#FFFFFF";
+      document.getElementById("card1").style.backgroundColor = "#36393f";
+    }
+    if (document.getElementById("card2") !== null) {
+      document.getElementById("card2").style.color = "#FFFFFF";
+      document.getElementById("card2").style.backgroundColor = "#36393f";
+    }
+    if (document.getElementById("card3") !== null) {
+      document.getElementById("card3").style.color = "#FFFFFF";
+      document.getElementById("card3").style.backgroundColor = "#36393f";
+    }
+    if (document.getElementById("card4") !== null) {
+      document.getElementById("card4").style.color = "#FFFFFF";
+      document.getElementById("card4").style.backgroundColor = "#36393f";
+    }
     if (document.getElementById("card5") !== null) {
       document.getElementById("card5").style.color = "#FFFFFF";
       document.getElementById("card5").style.backgroundColor = "#36393f";
-    }
-    if (document.getElementById("h2") !== null) {
-      document.getElementById("h2").style.color = "#FFFFFF";
-    }
-    if (document.getElementById("title") !== null) {
-      document.getElementById("title").style.color = "#FFFFFF";
     }
 }
