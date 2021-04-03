@@ -57,6 +57,10 @@
 		.body-dark body {
 			background-color: #2f3136;
 		}
+
+		.title-dark {
+			background-color: #2f3136 !important;
+		}
 	</style>
 </head>
 
@@ -64,11 +68,11 @@
 	<div id="body">
 		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
-				<a id="text" class="navbar-brand ml-2" href="{{ domain }}">plshelp</a>
+				<a id="text" class="navbar-brand ml-2" href="{{domain}}">plshelp</a>
 				<div class="onoffswitch">
 					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
 						tabindex="0" checked>
-					<label class="onoffswitch-label" for="myonoffswitch" onclick="DarkModeShow()">
+					<label class="onoffswitch-label" for="myonoffswitch" id="onoff" onclick="DarkModeShow()">
 						<span class="onoffswitch-inner"></span>
 						<span class="onoffswitch-switch"></span>
 					</label>
@@ -78,7 +82,7 @@
 		<div id="card-background" class="container rounded" style="padding-top: 32px; padding-bottom: 32px;">
 			<div id="card1" class="card w-100 card-box">
 				<div class="card-body shadow">
-					<h2 id="title"><strong>plshelp analysis</strong></h2>
+					<h2 id="title2" class="title"><strong>plshelp analysis</strong></h2>
 					<div class="mt-3">
 						<p id="sharelink" style="display: none;">{{share_url}}</p>
 						<p id="pastelink" style="display: none;">{{paste_url}}</p>
@@ -93,7 +97,7 @@
 			</div>
 			<div id="card2" class="card w-100 mt-4">
 				<div class="card-body shadow">
-					<h2 id="title" class="mb-2"><strong>Plugins:</strong></h2>
+					<h2 id="title2" class="mb-2"><strong>Plugins:</strong></h2>
 					{% for plugin in plugins %}
 					<div style="font-family: monospace, sans-serif; font-size: 12px;">{{plugin}}</div>
 					{% endfor %}
@@ -101,7 +105,7 @@
 			</div>
 			<div id="card3" class="card w-100 mt-4">
 				<div class="card-body shadow errors-light">
-					<h2 id="title" class="mb-2"><strong>Errors:</strong></h2>
+					<h2 id="title2" class="mb-2"><strong>Errors:</strong></h2>
 					{% for error in errors %}
 					<div id="error" class="error-light">{{error}}</div>
 					{% endfor %}
@@ -109,7 +113,7 @@
 			</div>
 			<div id="card4" class="card w-100 mt-4">
 				<div class="card-body shadow errors-light">
-					<h2 id="title"><strong>Other Info:</strong></h2>
+					<h2 id="title2"><strong>Other Info:</strong></h2>
 					<div id="info1" class="subtitle-light"><strong>Minecraft Version:</strong> {{minecraft_version}}
 					</div>
 					<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}}</div>
@@ -117,18 +121,18 @@
 					<div id="info4" class="subtitle-light"><strong>Needs newer Java:</strong> {{needs_newer_java}}</div>
 				</div>
 			</div>
-		</div>
 		{% block body %}
 		{% if sbw_wrongshop %}
 		<div id="card5" class="card w-100 mt-4">
 			<div class="card-body shadow errors-light">
-				<h2 id="title"><strong>ScreamingBedWars extension:</strong></h2>
-				<div class="subtitle" style="font-size: 16px; color: black;"><strong>Wrong shop.yml config:</strong>
+				<h2 id="title2"><strong>ScreamingBedWars extension:</strong></h2>
+				<div class="subtitle-light" id="info5" style="font-size: 16px;"><strong>Wrong shop.yml config:</strong>
 					{{sbw_wrongshop}}</div>
 			</div>
 		</div>
 		{% endif %}
 		{% endblock %}
+		</div>
 		<br></br>
 		<footer id="footer" class="footer-light" style="position: fixed;">
 			<p class="mt-2">

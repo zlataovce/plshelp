@@ -14,6 +14,9 @@ load_dotenv()
 
 app = Flask('')
 
+config = ConfigParser()
+config.read('config.ini')
+
 ##@app.errorhandler(404)
 ##def page_not_found(e):
 ##    config = ConfigParser()
@@ -23,8 +26,7 @@ app = Flask('')
 
 
 def upload_paste_thread(text):
-    config = ConfigParser()
-    config.read('config.ini')
+    global config
     pb = Pastebin(api_dev_key=environ.get('PASTEBIN_API_KEY'))
     pasteurl = pb.create_paste(text, api_paste_expire_date=config['SHARE']['PasteExpire'],
                                api_paste_name=config['SHARE']['PasteTitle'])
@@ -45,18 +47,19 @@ def parse():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    global config
+    return render_template("index.html", domain=config['FLASK']['Domain'])
 
 
 @app.route("/text")
 def index2():
-    return render_template("textupload.html")
+    global config
+    return render_template("textupload.html", domain=config['FLASK']['Domain'])
 
 
 @app.route("/show", methods=["GET", "POST"])
 def show():
-    config = ConfigParser()
-    config.read('config.ini')
+    global config
     if request.method == "GET":
         if request.args.get("type") == "share":
             r = requests.get(config['FLASK']['Domain'] + "/api/v1?url=" + request.args.get("url"))
@@ -84,8 +87,7 @@ def show():
 
 @app.route("/showv2", methods=["GET", "POST"])
 def showv2():
-    config = ConfigParser()
-    config.read('config.ini')
+    global config
     if request.method == "GET":
         index2()
     if request.method == "POST":
