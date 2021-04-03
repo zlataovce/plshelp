@@ -1,10 +1,14 @@
 const toggleClass =  (el, cls) => {
     if (Array.isArray(cls)) {
         cls.map((cl) => {
-            el.classList.toggle(cl);
+            if (el !== null) {
+              el.classList.toggle(cl);
+            }
         });
     } else {
-        el.classList.toggle(cls);
+        if (el !== null) {
+          el.classList.toggle(cls);
+        }
     }
 };
 
@@ -42,8 +46,14 @@ function DarkModeShow() {
     document.getElementById("card3").style.backgroundColor = "#36393f";
     document.getElementById("card4").style.color = "#FFFFFF";
     document.getElementById("card4").style.backgroundColor = "#36393f";
-    document.getElementById("card5").style.color = "#FFFFFF";
-    document.getElementById("card5").style.backgroundColor = "#36393f";
-    document.getElementById("h2").style.color = "#FFFFFF";
-    document.getElementById("title").style.color = "#FFFFFF";
+    if (document.getElementById("card5") !== null) {
+      document.getElementById("card5").style.color = "#FFFFFF";
+      document.getElementById("card5").style.backgroundColor = "#36393f";
+    }
+    if (document.getElementById("h2") !== null) {
+      document.getElementById("h2").style.color = "#FFFFFF";
+    }
+    if (document.getElementById("title") !== null) {
+      document.getElementById("title").style.color = "#FFFFFF";
+    }
 }
