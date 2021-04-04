@@ -61,7 +61,7 @@ function DarkModeShow() {
 
 window.onload = function WindowLoad(event) {
   if (localStorage.getItem("theme") === null) {
-      localStorage.setItem("theme", "light");
+      localStorage.setItem("theme", "dark");  // Change this to light if you want the light mode as default
   }
 
   if (localStorage.getItem("theme") === "dark") {

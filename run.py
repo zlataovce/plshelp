@@ -38,7 +38,7 @@ def parse():
     url = request.args.get("url")
     paster = Paste(url)
     if paster.identify() is False:
-        return "Needs URL parameter.", 400
+        return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
     parser = Parse(paster.filename)
     data = dumps(parser.analysis(), indent=2)
     remove(paster.filename)
