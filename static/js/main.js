@@ -84,5 +84,10 @@ window.onload = function WindowLoad(event) {
     toggleClass(document.getElementById("card3"), ["card-dark"]);
     toggleClass(document.getElementById("card4"), ["card-dark"]);
     toggleClass(document.getElementById("card5"), ["card-dark"]);
+    toggleClass(document.getElementById("darkmode"), ["body-dark"]);
+    toggleClass(document.getElementById("title"), ["title-dark"]);
+    toggleClass(document.getElementById("parse"), ["btn-primary"]);
+    toggleClass(document.getElementById("container"), ["container-dark"]);
+    toggleClass(document.getElementById("subtitle"), ["subtitle-dark"]);
   }
 }
