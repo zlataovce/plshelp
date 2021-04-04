@@ -13,9 +13,9 @@ const toggleClass =  (el, cls) => {
 };
 
 function DarkModeIndex() {
-    if (localStorage.getItem("theme") == "dark") {
+    if (localStorage.getItem("theme") === "dark") {
         localStorage.setItem("theme", "light");
-    } else if (localStorage.getItem("theme") == "light") {
+    } else if (localStorage.getItem("theme") === "light") {
         localStorage.setItem("theme", "dark");
     }
     var footer = document.getElementById("footer");
@@ -33,9 +33,9 @@ function DarkModeIndex() {
 
 
 function DarkModeShow() {
-    if (localStorage.getItem("theme") == "dark") {
+    if (localStorage.getItem("theme") === "dark") {
         localStorage.setItem("theme", "light");
-    } else if (localStorage.getItem("theme") == "light") {
+    } else if (localStorage.getItem("theme") === "light") {
         localStorage.setItem("theme", "dark");
     }
     var footer = document.getElementById("footer");
@@ -60,14 +60,14 @@ function DarkModeShow() {
 }
 
 window.onload = function WindowLoad(event) {
-  if (localStorage.getItem("theme") == null) {
+  if (localStorage.getItem("theme") === null) {
       localStorage.setItem("theme", "light");
   }
 
-  if (localStorage.getItem("theme") == "dark") {
+  if (localStorage.getItem("theme") === "dark") {
     var footer = document.getElementById("footer");
     footer.classList.toggle("footer-dark");
-    if (window.location.pathname == "/") {
+    if (window.location.pathname === "/") {
       toggleClass(document.getElementById("navbar"), ["bg-dark", "navbar-dark"]);
       toggleClass(document.getElementById("body"), ["body-dark"]);
       toggleClass(document.getElementById("darkmode"), ["body-dark"]);
@@ -94,4 +94,4 @@ window.onload = function WindowLoad(event) {
       toggleClass(document.getElementById("card5"), ["card-dark"]);
     }
   }
-}
+};
