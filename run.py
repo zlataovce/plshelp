@@ -56,6 +56,11 @@ def index2():
     global config
     return render_template("textupload.html", domain=config['FLASK']['Domain'])
 
+@app.route("/logs")
+def loglist():
+    global config
+    return render_template("loglist.html", domain=config['FLASK']['Domain'])
+
 
 @app.route("/show", methods=["GET", "POST"])
 def show():
