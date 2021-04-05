@@ -138,3 +138,9 @@ a {
   color: white;
   background-color: #292b2f !important;
 }
+
+.mobile-optimize {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

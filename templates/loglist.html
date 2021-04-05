@@ -48,6 +48,12 @@
         btn.innerText = "Show analysis";
         btn.style.marginLeft = "10px";
 
+        // Mobile options
+
+        p.classList.add("mobile-optimize")
+
+        // Mobile options end
+
         let btnremove = document.createElement("button");
         btnremove.onclick = function() {
           var logs = JSON.parse(localStorage.getItem("logs"));
