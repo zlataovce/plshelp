@@ -20,6 +20,10 @@
 			$temp.remove();
 		}
 
+		function toggleVisibility(element) {
+			toggleClass(document.getElementById(element), ['d-none'])
+		}
+
 		$(document).ready(function() {
 			if (localStorage.getItem("logs") === null) {
 				var logs = [];
@@ -83,17 +87,31 @@
 			<div id="card2" class="card w-100 mt-4">
 				<div class="card-body shadow">
 					<h2 id="title2" class="mb-2"><strong>Plugins:</strong></h2>
-					{% for plugin in plugins %}
-					<div class="monospace-light">{{plugin}}</div>
-					{% endfor %}
+					<div id="plugin-wrapper">
+						{% for plugin in plugins %}
+						<div class="monospace-light">{{plugin}}</div>
+						{% endfor %}
+					</div>
 				</div>
 			</div>
 			<div id="card3" class="card w-100 mt-4">
 				<div class="card-body shadow errors-light">
-					<h2 id="title2" class="mb-2"><strong>Errors:</strong></h2>
-					{% for error in errors %}
-					<div id="error" class="monospace-light">{{error}}</div>
-					{% endfor %}
+					<h2 id="title2" class="mb-2"><strong>Suspected errors:</strong></h2>
+					<div id="error-wrapper">
+						{% for key, value in classifiederrors.items() %}
+							{% set randomid = range(1, 2000) | random %}
+							<div id="smalltitle" class="subtitle-light mb-2 mt-2 noselect" onclick="toggleVisibility('plugin-block{{randomid}}')"><strong>{{key}} ▼</strong></div>
+							<div id="plugin-block{{randomid}}" class="d-none">
+								{% if value is none %}
+									<div id="error" class="monospace-light">No errors</div>
+								{% else %}
+									{% for e in value %}
+										<div id="error" class="monospace-light">{{e}}</div>
+									{% endfor %}
+								{% endif %}
+							</div>
+						{% endfor %}
+					</div>
 				</div>
 			</div>
 			<div id="card4" class="card w-100 mt-4">

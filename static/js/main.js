@@ -47,7 +47,7 @@ function DarkModeShow() {
     toggleClass(document.getElementById("info3"), ["subtitle-dark"]);
     toggleClass(document.getElementById("info4"), ["subtitle-dark"]);
     toggleClass(document.getElementById("info5"), ["subtitle-dark"]);
-    toggleClass(document.getElementById("error"), ["error-dark"]);
+    toggleClass(document.getElementById("error"), ["monospace-dark"]);
     toggleClass(document.getElementById("body"), ["body-dark"]);
     toggleClass(document.getElementById("spacer"), ["body-dark"]);
     toggleClass(document.getElementById("title"), ["title-dark"]);
@@ -57,6 +57,7 @@ function DarkModeShow() {
     toggleClass(document.getElementById("card3"), ["card-dark"]);
     toggleClass(document.getElementById("card4"), ["card-dark"]);
     toggleClass(document.getElementById("card5"), ["card-dark"]);
+    toggleClass(document.getElementById("smalltitle"), ["subtitle-dark"]);
 }
 
 $(document).ready(function WindowLoad(event) {
@@ -92,6 +93,7 @@ $(document).ready(function WindowLoad(event) {
             toggleClass(document.getElementById("card3"), ["card-dark"]);
             toggleClass(document.getElementById("card4"), ["card-dark"]);
             toggleClass(document.getElementById("card5"), ["card-dark"]);
+            toggleClass(document.getElementById("smalltitle"), ["subtitle-dark"]);
         }
     }
 });

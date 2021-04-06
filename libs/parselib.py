@@ -14,7 +14,10 @@ class Parse:
         self.errorwhitelist = self.config['PARSER']['ErrorWhitelist'].split(",")
         self.results = {
             "plugins": [],
-            "errors": []
+            "plugins_altver": [],
+            "errors": [],
+            "classified_errors": {},
+            "common_errors": []
         }
 
     def analysis(self):
@@ -43,7 +46,10 @@ class Parse:
                                 raise ValueError
                         if i.split('] Loading ')[1].rstrip("\n") in self.results["plugins"]:
                             continue
+                        if i.split('] Loading ')[1].split(' v')[0].rstrip("\n") in self.results["plugins_altver"]:
+                            continue
                         self.results["plugins"].append(i.split('] Loading ')[1].rstrip("\n"))
+                        self.results["plugins_altver"].append(i.split('] Loading ')[1].split(' v')[0].rstrip("\n"))
                     except ValueError:
                         continue
                 elif 'generated an exception' in i or "Could not pass event" in i or 'Exception' in i or "Could not " \
@@ -84,6 +90,18 @@ class Parse:
         self.check_defaults_bool('sbw_wrongshop')
         self.check_defaults('minecraft_version', None)
         self.check_defaults('server_software', None)
+        for i in self.results["plugins_altver"]:
+            self.results["classified_errors"][i] = []
+        for i in self.results["plugins_altver"]:
+            for x in self.results["errors"]:
+                if i in x:
+                    self.results["classified_errors"][i].append(x)
+                else:
+                    self.results["common_errors"].append(x)
+        for key, value in self.results["classified_errors"].items():
+            if not value:
+                self.results["classified_errors"][key] = None
+        self.check_none('common_errors')
         return self.results
 
     def check_defaults_bool(self, value):
@@ -92,6 +110,12 @@ class Parse:
                 pass
         except KeyError:
             self.results[value] = False
+
+    def check_none(self, value):
+        if not self.results[value]:
+            pass
+        else:
+            self.results[value] = None
 
     def check_defaults(self, value, defaults):
         try:
