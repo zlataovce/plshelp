@@ -33,10 +33,15 @@
       }
       var i;
       logs.forEach(function(item, index) {
+        if (i.includes("Upload error")) {
+          return;
+        }
         let p = document.createElement("p");
-        p.style.fontSize = "15px";
-        p.style.paddingTop = "10px";
+        p.classList.add("pt-2");
+        p.classList.add("log-item");
+        p.classList.add("mobile-optimize");
         p.innerText = item;
+
         let btn = document.createElement("button");
         btn.onclick = function() {
           window.location.href = window.location.origin + "/show?type=share&url=" + item;
@@ -44,15 +49,10 @@
         btn.classList.add("btn");
         btn.classList.add("btn-dark");
         // btn.classList.add("btn-sm");
-        btn.style.float = "right";
+        btn.classList.add("log-button");
+        // btn.classList.add("ml-2");
+        btn.style.marginLeft = "5px";
         btn.innerText = "Show analysis";
-        btn.style.marginLeft = "10px";
-
-        // Mobile options
-
-        p.classList.add("mobile-optimize")
-
-        // Mobile options end
 
         let btnremove = document.createElement("button");
         btnremove.onclick = function() {
@@ -64,46 +64,17 @@
         btnremove.classList.add("btn");
         btnremove.classList.add("btn-warning");
         // btnremove.classList.add("btn-sm");
-        btnremove.style.float = "right";
+        btnremove.classList.add("log-button");
         btnremove.innerText = "Remove log";
 
         p.appendChild(btn);
         p.appendChild(btnremove);
-        p.style.paddingBottom = "5px";
+        p.classList.add("pb-1")
         document.getElementById("content-wrapper").appendChild(p);
       });
     });
 	</script>
 	<style>
-		.subtitle-light {
-			font-size: 16px;
-		}
-
-		.subtitle-light strong {
-			font-size: 16px;
-		}
-
-		.subtitle-dark {
-			font-size: 16px;
-			color: white;
-		}
-
-		.subtitle-dark strong {
-			font-size: 16px;
-			color: white;
-		}
-
-		.error-light {
-			font-family: monospace, sans-serif;
-			font-size: 12px;
-		}
-
-		.error-dark {
-			font-family: monospace, sans-serif;
-			font-size: 12px;
-			color: rgb(255, 255, 255);
-		}
-
 		h2 {
 			font-size: 20px;
 		}

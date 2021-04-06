@@ -30,6 +30,8 @@ def upload_paste_thread(text):
     pb = Pastebin(api_dev_key=environ.get('PASTEBIN_API_KEY'))
     pasteurl = pb.create_paste(text, api_paste_expire_date=config['SHARE']['PasteExpire'],
                                api_paste_name=config['SHARE']['PasteTitle'])
+    if "Bad API request" in pasteurl:
+        pasteurl = "Upload error"
     return pasteurl
 
 

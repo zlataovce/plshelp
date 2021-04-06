@@ -82,7 +82,7 @@ $(document).ready(function WindowLoad(event) {
             toggleClass(document.getElementById("info3"), ["subtitle-dark"]);
             toggleClass(document.getElementById("info4"), ["subtitle-dark"]);
             toggleClass(document.getElementById("info5"), ["subtitle-dark"]);
-            toggleClass(document.getElementById("error"), ["error-dark"]);
+            toggleClass(document.getElementById("error"), ["monospace-dark"]);
             toggleClass(document.getElementById("body"), ["body-dark"]);
             toggleClass(document.getElementById("spacer"), ["body-dark"]);
             toggleClass(document.getElementById("title"), ["title-dark"]);
