@@ -59,7 +59,7 @@
 	<div id="body">
 		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
-				<a id="text" class="navbar-brand ml-2" href="{{domain}}" style="min-height: 2.5rem;">plshelp</a>
+				<a id="text" class="navbar-brand ml-2" href="{{domain}}" style="min-height: 2.5rem; /* i hate this */">plshelp</a>
 				<div>
 					<a class="btn btn-dark btn-sm" href="/text">Log upload</a>
 					<a class="btn btn-dark btn-sm" href="/logs">Analysis history</a>
@@ -74,17 +74,17 @@
 				</div>
 			</div>
 		</nav>
-		<div id="card-background" class="container rounded" style="padding-top: 32px; padding-bottom: 32px;">
-			<div class="container is-fluid" style="padding-top: 32px;">
-				<h1 id="title" class="title-light mobile-optimize" style="padding-bottom: 10px; font-family: Roboto, sans-serif;">Content of your logs:</h1>
+		<div id="card-background" class="container rounded pt-5 pb-5">
+			<div class="container is-fluid pt-5">
+				<h1 id="title" class="title-light mobile-optimize title-al pb-2">Content of your logs:</h1>
 				<form action="/showv2" method="post">
 			  <textarea id="logfile" name="logfile" class="textarea" placeholder="Paste your latest.log here!" rows="15"></textarea>
-					<p id="spacer" class="body-light" style="padding-bottom: 10px;"></p>
+					<p id="spacer" class="body-light pb-2"></p>
 					<input type="submit" class="button is-dark" value="Parse"></input>
 				</form>
 			</div>
 		</div>
-		<footer id="footer" class="footer-light" style="position: fixed;">
+		<footer id="footer" class="footer-light">
 			<p class="mt-2">
 				Made with ❤️ by <a href="https://github.com/zlataovce">zlataovce</a> and the <a href="https://screamingsandals.org/discord">ScreamingSandals community</a>
 			</p>

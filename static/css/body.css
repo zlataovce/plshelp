@@ -144,3 +144,11 @@ a {
   white-space: nowrap;
   overflow: hidden;
 }
+
+.footer {
+  position: fixed;
+}
+
+.title-al {
+  font-family: Roboto, sans-serif;
+}

@@ -51,12 +51,12 @@
 			color: white;
 		}
 
-		.error-light {
+		.monospace-light {
 			font-family: monospace, sans-serif;
 			font-size: 12px;
 		}
 
-		.error-dark {
+		.monospace-dark {
 			font-family: monospace, sans-serif;
 			font-size: 12px;
 			color: rgb(255, 255, 255);
@@ -95,7 +95,7 @@
 				</div>
 			</div>
 		</nav>
-		<div id="card-background" class="container rounded" style="padding-top: 32px; padding-bottom: 32px;">
+		<div id="card-background" class="container rounded pt-5 pb-5">
 			<div id="card1" class="card w-100 card-box">
 				<div class="card-body shadow">
 					<h2 id="title2" class="title"><strong>plshelp analysis</strong></h2>
@@ -104,10 +104,8 @@
 						<p id="pastelink" style="display: none;">{{paste_url}}</p>
 					</div>
 					<p>
-						<button class="btn btn-dark" onclick="copyToClipboard('#sharelink')"
-							style="padding-top: 10px;">Copy analysis link</button>
-						<button class="btn btn-dark" onclick="copyToClipboard('#pastelink')"
-							style="padding-top: 10px;">Copy paste link</button>
+						<button class="btn btn-dark pt-2" onclick="copyToClipboard('#sharelink')">Copy analysis link</button>
+						<button class="btn btn-dark pt-2" onclick="copyToClipboard('#pastelink')">Copy paste link</button>
 					</p>
 				</div>
 			</div>
@@ -115,7 +113,7 @@
 				<div class="card-body shadow">
 					<h2 id="title2" class="mb-2"><strong>Plugins:</strong></h2>
 					{% for plugin in plugins %}
-					<div style="font-family: monospace, sans-serif; font-size: 12px;">{{plugin}}</div>
+					<div class="monospace-light">{{plugin}}</div>
 					{% endfor %}
 				</div>
 			</div>
@@ -123,15 +121,14 @@
 				<div class="card-body shadow errors-light">
 					<h2 id="title2" class="mb-2"><strong>Errors:</strong></h2>
 					{% for error in errors %}
-					<div id="error" class="error-light">{{error}}</div>
+					<div id="error" class="monospace-light">{{error}}</div>
 					{% endfor %}
 				</div>
 			</div>
 			<div id="card4" class="card w-100 mt-4">
 				<div class="card-body shadow errors-light">
 					<h2 id="title2"><strong>Other Info:</strong></h2>
-					<div id="info1" class="subtitle-light"><strong>Minecraft Version:</strong> {{minecraft_version}}
-					</div>
+					<div id="info1" class="subtitle-light"><strong>Minecraft Version:</strong> {{minecraft_version}}</div>
 					<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}}</div>
 					<div id="info3" class="subtitle-light"><strong>Reloaded:</strong> {{reload}}</div>
 					<div id="info4" class="subtitle-light"><strong>Needs newer Java:</strong> {{needs_newer_java}}</div>
@@ -142,7 +139,7 @@
 		<div id="card5" class="card w-100 mt-4">
 			<div class="card-body shadow errors-light">
 				<h2 id="title2"><strong>ScreamingBedWars extension:</strong></h2>
-				<div class="subtitle-light" id="info5" style="font-size: 16px;"><strong>Wrong shop.yml config:</strong>
+				<div class="subtitle-light" id="info5"><strong>Wrong shop.yml config:</strong>
 					{{sbw_wrongshop}}</div>
 			</div>
 		</div>
@@ -150,7 +147,7 @@
 		{% endblock %}
 		</div>
 		<br></br>
-		<footer id="footer" class="footer-light" style="position: fixed;">
+		<footer id="footer" class="footer-light">
 			<p class="mt-2">
 				Made with ❤️ by <a href="https://github.com/zlataovce">zlataovce</a> and the <a href="https://screamingsandals.org/discord">ScreamingSandals community</a>
 			</p>
