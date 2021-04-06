@@ -97,3 +97,20 @@ $(document).ready(function WindowLoad(event) {
         }
     }
 });
+
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+
+function toggleVisibility(element, titlelem) {
+  if (titlelem.innerHTML.includes("⯆")) {
+    titlelem.innerHTML = titlelem.innerHTML.replace("⯆", "⯈");
+  } else {
+    titlelem.innerHTML = titlelem.innerHTML.replace("⯈", "⯆");
+  }
+  toggleClass(document.getElementById(element), ['d-none']);
+}
