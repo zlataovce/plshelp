@@ -89,12 +89,12 @@
 						{% for key, value in classifiederrors.items() %}
 							{% set randomid = range(1, 2000) | random %}
 							<div id="smalltitle" class="subtitle-light mb-2 mt-2 noselect" onclick="toggleVisibility('plugin-block{{randomid}}', this)"><strong>{{key}} ⯆</strong></div>
-							<div id="plugin-block{{randomid}}" class="d-none">
+							<div id="plugin-block{{randomid}}" class="mobile-optimize-pg d-none">
 								{% if value is none %}
 									<div id="error" class="monospace-light">No errors</div>
 								{% else %}
 									{% for e in value %}
-										<div id="error" class="monospace-light scrollable">{{e}}</div>
+										<div id="error" class="monospace-light">{{e}}</div>
 									{% endfor %}
 								{% endif %}
 							</div>

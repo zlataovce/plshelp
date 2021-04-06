@@ -141,8 +141,13 @@ a {
 
 .mobile-optimize {
   text-overflow: ellipsis;
-  /* white-space: nowrap; */
+  white-space: nowrap;
   overflow: hidden;
+}
+
+.mobile-optimize-pg {
+  overflow-x: scroll;
+  white-space: nowrap;
 }
 
 .footer {
