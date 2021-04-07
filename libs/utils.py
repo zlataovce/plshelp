@@ -11,3 +11,7 @@ def check_filename():
                 return filename
     else:
         return filename
+
+
+def sanitize(text):
+    return text.replace("\\", "").replace("❤", "")

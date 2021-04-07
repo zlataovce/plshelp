@@ -114,3 +114,13 @@ function toggleVisibility(element, titlelem) {
   }
   toggleClass(document.getElementById(element), ['d-none']);
 }
+
+function toggleviewMode(button, simple, advanced) {
+  toggleClass(document.getElementById(simple), ['d-none']);
+  toggleClass(document.getElementById(advanced), ['d-none']);
+  if (button.innerHTML.includes("Simple mode")) {
+    button.innerHTML = button.innerHTML.replace("Simple mode", "Advanced mode");
+  } else {
+    button.innerHTML = button.innerHTML.replace("Advanced mode", "Simple mode");
+  }
+}

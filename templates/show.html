@@ -69,6 +69,7 @@
 					<p>
 						<button class="btn btn-dark pt-2" onclick="copyToClipboard('#sharelink')">Copy analysis link</button>
 						<button class="btn btn-dark pt-2" onclick="copyToClipboard('#pastelink')">Copy paste link</button>
+						<button id="modetoggle" class="btn btn-dark pt-2" onclick="toggleviewMode(this, 'error-wrapper-simple', 'error-wrapper-advanced')">Simple mode</button>
 					</p>
 				</div>
 			</div>
@@ -85,9 +86,9 @@
 			<div id="card3" class="card w-100 mt-4">
 				<div class="card-body shadow errors-light">
 					<h2 id="title2" class="mb-2"><strong>Suspected errors:</strong></h2>
-					<div id="error-wrapper">
+					<div id="error-wrapper-simple" class="d-none">
 						{% for key, value in classifiederrors.items() %}
-							{% set randomid = range(1, 2000) | random %}
+							{% set randomid = range(1, 200000) | random %}
 							<div id="smalltitle" class="subtitle-light mb-2 mt-2 noselect" onclick="toggleVisibility('plugin-block{{randomid}}', this)"><strong>{{key}} ⯆</strong></div>
 							<div id="plugin-block{{randomid}}" class="mobile-optimize-pg d-none">
 								{% if value is none %}
@@ -99,6 +100,13 @@
 								{% endif %}
 							</div>
 						{% endfor %}
+					</div>
+					<div id="error-wrapper-advanced">
+						<div id="plugin-block-advanced" class="mobile-optimize-pg">
+							{% for i in errors %}
+								<div id="error" class="monospace-light">{{i}}</div>
+							{% endfor %}
+						</div>
 					</div>
 				</div>
 			</div>

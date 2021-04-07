@@ -6,7 +6,7 @@ from os import remove, environ
 import requests
 from pbwrap import Pastebin
 from dotenv import load_dotenv
-from libs.utils import check_filename
+from libs.utils import check_filename, sanitize
 from configparser import ConfigParser
 import concurrent.futures
 
@@ -76,7 +76,7 @@ def show():
                 return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                        minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                        reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                       sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"), domain=config['FLASK']['Domain'])
+                                       sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"), domain=config['FLASK']['Domain'], errors=re["errors"])
             else:
                 return "The paste URL was wrong!", 400
     if request.method == "POST":
@@ -87,7 +87,7 @@ def show():
             return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                    minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"), domain=config['FLASK']['Domain'])
+                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"), domain=config['FLASK']['Domain'], errors=re["errors"])
         else:
             return "The paste URL was wrong!", 400
 
@@ -100,9 +100,9 @@ def showv2():
     if request.method == "POST":
         filename = check_filename()
         with open(filename, "w") as f:
-            f.write(request.form.get("logfile"))
+            f.write(sanitize(request.form.get("logfile")))
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            thread = executor.submit(upload_paste_thread, request.form.get("logfile"))
+            thread = executor.submit(upload_paste_thread, sanitize(request.form.get("logfile")))
         parser = Parse(filename)
         re = parser.analysis()
         pasteurl = thread.result()
@@ -112,7 +112,7 @@ def showv2():
             return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                    minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl, domain=config['FLASK']['Domain'])
+                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl, domain=config['FLASK']['Domain'], errors=re["errors"])
         except KeyError:
             return "Incomplete logs!", 400
 

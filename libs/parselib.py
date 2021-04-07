@@ -16,8 +16,7 @@ class Parse:
             "plugins": [],
             "plugins_altver": [],
             "errors": [],
-            "classified_errors": {},
-            "common_errors": []
+            "classified_errors": {}
         }
 
     def analysis(self):
@@ -27,7 +26,7 @@ class Parse:
             try:
                 if start_exception_linecnt is True:
                     if exception_linecnt <= 6:
-                        if "\tat " in i or "java.lang" in i:
+                        if "at " in i or "java.lang" in i:
                             self.results["errors"].append(i.rstrip("\n").replace("\t", ""))
                             exception_linecnt += 1
                             continue
@@ -93,15 +92,34 @@ class Parse:
         for i in self.results["plugins_altver"]:
             self.results["classified_errors"][i] = []
         for i in self.results["plugins_altver"]:
+            start_exception_linecnt = False
+            exception_linecnt = 0
             for x in self.results["errors"]:
-                if i in x:
-                    self.results["classified_errors"][i].append(x)
+                if start_exception_linecnt is True:
+                    if exception_linecnt <= 6:
+                        if "at " in x or "java.lang" in x:
+                            self.results["classified_errors"][i].append(x)
+                            exception_linecnt += 1
+                        else:
+                            start_exception_linecnt = False
+                    else:
+                        start_exception_linecnt = False
                 else:
-                    self.results["common_errors"].append(x)
+                    if i in x:
+                        try:
+                            for y in self.errorblacklist:
+                                if y in x:
+                                    raise ValueError
+                            self.results["classified_errors"][i].append(x)
+                            if 'generated an exception' in x or "Could not pass event" in x or 'Exception' in x or "Could not load " in x:
+                                if start_exception_linecnt is not True:
+                                    start_exception_linecnt = True
+                                    exception_linecnt = 0
+                        except ValueError:
+                            pass
         for key, value in self.results["classified_errors"].items():
-            if not value:
+            if not len(value):
                 self.results["classified_errors"][key] = None
-        self.check_none('common_errors')
         return self.results
 
     def check_defaults_bool(self, value):
@@ -110,12 +128,6 @@ class Parse:
                 pass
         except KeyError:
             self.results[value] = False
-
-    def check_none(self, value):
-        if not self.results[value]:
-            pass
-        else:
-            self.results[value] = None
 
     def check_defaults(self, value, defaults):
         try:
