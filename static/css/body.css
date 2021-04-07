@@ -148,6 +148,14 @@ a {
 .mobile-optimize-pg {
   overflow-x: scroll;
   white-space: nowrap;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.mobile-optimize-pg::-webkit-scrollbar {
+    width: 0;
+    height: 0;
 }
 
 .footer {
@@ -201,7 +209,3 @@ a {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-.scrollable {
-  overflow: scroll;
-}
