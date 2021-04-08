@@ -91,23 +91,7 @@
 
 <body>
 	<div id="body">
-		<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-			<div class="container-fluid">
-				<a id="text" class="navbar-brand ml-2" href="{{domain}}">plshelp</a>
-        <div>
-          <a class="btn btn-dark btn-sm" href="/text">Log upload</a>
-          <a class="btn btn-dark btn-sm" href="/logs">Analysis history</a>
-        </div>
-				<div class="onoffswitch">
-					<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
-						tabindex="0" checked>
-					<label class="onoffswitch-label" for="myonoffswitch" id="onoff" onclick="DarkModeShow()">
-						<span class="onoffswitch-inner"></span>
-						<span class="onoffswitch-switch"></span>
-					</label>
-				</div>
-			</div>
-		</nav>
+		{% include "navbar.html" %}
 		<div id="card-background" class="container rounded pt-5 pb-5">
 			<div id="card1" class="card w-100 mt-4">
 				<div id="loglist" class="card-body shadow">
@@ -117,11 +101,7 @@
 			</div>
 		</div>
 		<br></br>
-		<footer id="footer" class="footer-light">
-			<p class="mobile-optimize mt-2">
-				Made with ❤️ by <a href="https://github.com/zlataovce">zlataovce</a> and the <a href="https://screamingsandals.org/discord">ScreamingSandals community</a>
-			</p>
-		</footer>
+		{% include "footer.html" %}
 	</div>
 
 </body>

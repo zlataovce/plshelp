@@ -17,22 +17,7 @@
 	<div>
 		<div class="content-wrap">
 			<!-- navbar -->
-			<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-				<div class="container-fluid">
-					<a id="text" class="navbar-brand ml-2" href="{{ domain }}">plshelp</a>
-					<div>
-						<a class="btn btn-dark btn-sm" href="/text">Log upload</a>
-						<a class="btn btn-dark btn-sm" href="/logs">Analysis history</a>
-					</div>
-					<div class="onoffswitch">
-						<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0" checked>
-						<label class="onoffswitch-label" for="myonoffswitch" onclick="DarkModeIndex()">
-							<span class="onoffswitch-inner"></span>
-							<span class="onoffswitch-switch"></span>
-						</label>
-					</div>
-				</div>
-			</nav>
+			{% include "navbar.html" %}
 			<!--Page Content-->
 			<div id="container" class="mt-5" style="text-align: center; justify-content: center;">
                 <img src="/static/assets/404.svg" style="justify-content: center; width: 300px; height: 300;">
@@ -46,11 +31,7 @@
 
 			</div>
 			<!-- Footer -->
-			<footer id="footer" class="footer-light">
-				<p class="mobile-optimize mt-2">
-					Made with ❤️ by <a href="https://github.com/zlataovce">zlataovce</a>
-				</p>
-			</footer>
+			{% include "footer.html" %}
 		</div>
 
 </body>
