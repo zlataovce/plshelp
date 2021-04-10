@@ -1,0 +1,33 @@
+{
+	"CitizensCMD": {
+		"type": "warning",
+		"desc": "NPC command plugins never had a reason to exist. Please use Citizens2 and their integrated NPC commands."
+	},
+	"Citizens2": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.citizensnpcs.co/job/Citizens2"
+	},
+	"ProtocolLib": {
+		"type": "normal",
+		"ci": "github",
+		"link": "dmulloy2/ProtocolLib"
+	},
+	"ScreamingBedWars": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.screamingsandals.org/job/BedWars-0.x.x",
+		"attribs": ["java11", "risksnapshots"]
+	},
+	"SBAHypixelify": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.screamingsandals.org/job/SBAHypixelify",
+		"attribs": ["java11", "risksnapshots"]
+	},
+	"EssentialsX": {
+		"type": "normal",
+		"ci": "github",
+		"link": "EssentialsX/Essentials"
+	}
+}

@@ -1,5 +1,6 @@
 from os.path import exists
 from random import randint
+from json import load
 
 
 def check_filename():
@@ -15,3 +16,8 @@ def check_filename():
 
 def sanitize(text):
     return text.replace("\\", "").replace("❤", "")
+
+
+def jsonf(filename):
+	with open(filename, "r") as f:
+		return json.load(f)
