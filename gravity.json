@@ -29,5 +29,15 @@
 		"type": "normal",
 		"ci": "github",
 		"link": "EssentialsX/Essentials"
+	},
+	"CommandNPC": {
+		"type": "warn",
+		"desc": "NPC command plugins never had a reason to exist. Please use Citizens2 and their integrated NPC commands."
+	},
+	"LuckPerms": {
+		"type": "normal",
+		"ci": "jenkins",
+		"regex": "\\d.\\d.\\d\\d",
+		"link": "https://ci.lucko.me/job/LuckPerms"
 	}
 }
