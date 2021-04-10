@@ -1,9 +1,9 @@
 {
 	"CitizensCMD": {
-		"type": "warning",
+		"type": "warn",
 		"desc": "NPC command plugins never had a reason to exist. Please use Citizens2 and their integrated NPC commands."
 	},
-	"Citizens2": {
+	"Citizens": {
 		"type": "normal",
 		"ci": "jenkins",
 		"link": "https://ci.citizensnpcs.co/job/Citizens2"
@@ -25,7 +25,7 @@
 		"link": "https://ci.screamingsandals.org/job/SBAHypixelify",
 		"attribs": ["java11", "risksnapshots"]
 	},
-	"EssentialsX": {
+	"Essentials": {
 		"type": "normal",
 		"ci": "github",
 		"link": "EssentialsX/Essentials"

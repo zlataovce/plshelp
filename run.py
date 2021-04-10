@@ -6,9 +6,10 @@ from os import remove, environ
 import requests
 from pbwrap import Pastebin
 from dotenv import load_dotenv
-from libs.utils import check_filename, sanitize
+from libs.utils import check_filename, sanitize, jsonf
 from configparser import ConfigParser
 import concurrent.futures
+from libs.classifylib import classify
 
 load_dotenv()
 
@@ -16,6 +17,9 @@ app = Flask('')
 
 config = ConfigParser()
 config.read('config.ini')
+
+gravity = jsonf("gravity.json")
+lang = jsonf("lang.json")
 
 ##@app.errorhandler(404)
 ##def page_not_found(e):
@@ -45,6 +49,27 @@ def parse():
     data = dumps(parser.analysis(), indent=2)
     remove(paster.filename)
     return Response(data, mimetype='application/json')
+
+
+@app.route('/api/v2')
+def parse_intelligent():
+    global gravity, lang
+    url = request.args.get("url")
+    paster = Paste(url)
+    if paster.identify() is False:
+        return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
+    parser = Parse(paster.filename)
+    data = parser.analysis()
+    remove(paster.filename)
+    data["gravity_classified_plugins"] = {}
+    for i in gravity.keys():
+        if i in data["plugins_altver"]:
+            r = classify(gravity, lang, i)
+            if isinstance(r, dict):
+                data["gravity_classified_plugins"][i] = r
+            elif isinstance(r, str):
+                data["gravity_classified_plugins"][i] = {"latest_build": None, "attributes": r}
+    return Response(dumps(data, indent=2), mimetype='application/json')
 
 
 @app.route("/")

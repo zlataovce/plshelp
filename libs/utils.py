@@ -20,4 +20,4 @@ def sanitize(text):
 
 def jsonf(filename):
 	with open(filename, "r") as f:
-		return json.load(f)
+		return load(f)
