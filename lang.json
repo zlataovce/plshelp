@@ -1,6 +1,6 @@
 {
 	"attribs": {
 		"risksnapshots": "This plugin is known to have broken snapshots/dev builds. (risksnapshots)",
-		"java11": "This plugin needs Java 11 or better to function. (java11)"
+		"java11": "This plugin needs Java 11 or higher to function. (java11)"
 	}
 }
