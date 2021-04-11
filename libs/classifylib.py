@@ -22,4 +22,4 @@ def classify(gravity, lang, plugin):
 			elif plugin_class["ci"] == "github":
 				return {"latest_build": latest_release_github(plugin_class["link"]), "attributes": None}
 	if plugin_class["type"] == "warn":
-		return plugin_class["desc"]
+		return [plugin_class["desc"]]

@@ -93,6 +93,7 @@ $(document).ready(function WindowLoad(event) {
             toggleClass(document.getElementById("card3"), ["card-dark"]);
             toggleClass(document.getElementById("card4"), ["card-dark"]);
             toggleClass(document.getElementById("card5"), ["card-dark"]);
+            toggleClass(document.getElementById("card6"), ["card-dark"]);
             toggleClass(document.getElementById("smalltitle"), ["subtitle-dark"]);
         }
     }

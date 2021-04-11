@@ -19,3 +19,11 @@ def latest_release_github(joburl):
 	url = "https://api.github.com/repos/" + joburl + "/releases/latest"
 	r = get(url).json()
 	return r["tag_name"]
+
+def latest_paper_build(minecraft_ver):
+	url = "https://papermc.io/api/v2/projects/paper/versions/" + minecraft_ver
+	r = get(url)
+	if r.status_code == 200:
+		return r.json()["builds"][-1]
+	else:
+		return None

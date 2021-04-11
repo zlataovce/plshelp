@@ -98,22 +98,44 @@
 				<div class="card-body shadow errors-light">
 					<h2 id="title2"><strong>Other Info:</strong></h2>
 					<div id="info1" class="subtitle-light"><strong>Minecraft Version:</strong> {{minecraft_version}}</div>
-					<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}}</div>
+					{% if paperbuild is none %}
+						<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}} (latest build couldn't be determined)</div>
+					{% else %}
+						<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}} (latest is {{paperbuild}})</div>
+					{% endif %}
 					<div id="info3" class="subtitle-light"><strong>Reloaded:</strong> {{reload}}</div>
 					<div id="info4" class="subtitle-light"><strong>Needs newer Java:</strong> {{needs_newer_java}}</div>
 				</div>
 			</div>
-		{% block body %}
-		{% if sbw_wrongshop %}
-		<div id="card5" class="card w-100 mt-4">
-			<div class="card-body shadow errors-light">
-				<h2 id="title2"><strong>ScreamingBedWars extension:</strong></h2>
-				<div class="subtitle-light" id="info5"><strong>Wrong shop.yml config:</strong>
-					{{sbw_wrongshop}}</div>
+			{% if gravityplugins %}
+			<div id="card5" class="card w-100 mt-4">
+				<div class="card-body shadow errors-light">
+					<h2 id="title2"><strong>Plugin analysis by plshelp gravity</strong></h2>
+					{% for key, value in gravityplugins.items() %}
+						{% if value['attributes'] is not none %}
+							<div class="subtitle-light" id="info5"><strong>{{key}}</strong></div>
+							{% for i in value['attributes'] %}
+								<div class="text-danger">{{i}}</div>
+							{% endfor %}
+						{% elif value['latest_build'] is not none %}
+							{% for i in plugins %}
+								{% if key in i %}
+									<div class="subtitle-light" id="info5"><strong>{{i}}</strong> (latest build {{value['latest_build']}})</div>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+				</div>
 			</div>
-		</div>
-		{% endif %}
-		{% endblock %}
+			{% endif %}
+			{% if sbw_wrongshop %}
+			<div id="card6" class="card w-100 mt-4">
+				<div class="card-body shadow errors-light">
+					<h2 id="title2"><strong>ScreamingBedWars extension:</strong></h2>
+					<div class="subtitle-light" id="info5"><strong>Wrong shop.yml config!</strong></div>
+				</div>
+			</div>
+			{% endif %}
 		</div>
 		<br></br>
 		{% include "footer.html" %}

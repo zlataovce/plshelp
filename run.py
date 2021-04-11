@@ -10,6 +10,7 @@ from libs.utils import check_filename, sanitize, jsonf
 from configparser import ConfigParser
 import concurrent.futures
 from libs.classifylib import classify
+from libs.apis import latest_paper_build
 
 load_dotenv()
 
@@ -67,8 +68,12 @@ def parse_intelligent():
             r = classify(gravity, lang, i)
             if isinstance(r, dict):
                 data["gravity_classified_plugins"][i] = r
-            elif isinstance(r, str):
+            elif isinstance(r, list):
                 data["gravity_classified_plugins"][i] = {"latest_build": None, "attributes": r}
+    if "Paper" in data["server_software"]:
+        data["paper_build"] = latest_paper_build(data["minecraft_version"])
+    else:
+        data["paper_build"] = None
     return Response(dumps(data, indent=2), mimetype='application/json')
 
 
@@ -94,32 +99,34 @@ def show():
     global config
     if request.method == "GET":
         if request.args.get("type") == "share":
-            r = requests.get(config['FLASK']['Domain'] + "/api/v1?url=" + request.args.get("url"))
+            r = requests.get(config['FLASK']['Domain'] + "/api/v2?url=" + request.args.get("url"))
             shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.args.get("url")
             if r.status_code != 400:
                 re = r.json()
                 return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                        minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                        reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                       sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"), domain=config['FLASK']['Domain'], errors=re["errors"])
+                                       sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"), domain=config['FLASK']['Domain'], errors=re["errors"],
+                                       gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
             else:
                 return "The paste URL was wrong!", 400
     if request.method == "POST":
-        r = requests.get(config['FLASK']['Domain'] + "/api/v1?url=" + request.form.get("url"))
+        r = requests.get(config['FLASK']['Domain'] + "/api/v2?url=" + request.form.get("url"))
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.form.get("url")
         if r.status_code != 400:
             re = r.json()
             return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                    minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"), domain=config['FLASK']['Domain'], errors=re["errors"])
+                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"), domain=config['FLASK']['Domain'], errors=re["errors"],
+                                   gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
         else:
             return "The paste URL was wrong!", 400
 
 
 @app.route("/showv2", methods=["GET", "POST"])
 def showv2():
-    global config
+    global config, gravity, lang
     if request.method == "GET":
         index2()
     if request.method == "POST":
@@ -130,6 +137,14 @@ def showv2():
             thread = executor.submit(upload_paste_thread, sanitize(request.form.get("logfile")))
         parser = Parse(filename)
         re = parser.analysis()
+        re["gravity_classified_plugins"] = {}
+        for i in gravity.keys():
+            if i in re["plugins_altver"]:
+                r = classify(gravity, lang, i)
+                if isinstance(r, dict):
+                    re["gravity_classified_plugins"][i] = r
+                elif isinstance(r, str):
+                    re["gravity_classified_plugins"][i] = {"latest_build": None, "attributes": r}
         pasteurl = thread.result()
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + pasteurl
         remove(filename)
@@ -137,7 +152,8 @@ def showv2():
             return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                    minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl, domain=config['FLASK']['Domain'], errors=re["errors"])
+                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl, domain=config['FLASK']['Domain'], errors=re["errors"],
+                                   gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
         except KeyError:
             return "Incomplete logs!", 400
 
