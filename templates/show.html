@@ -113,11 +113,22 @@
 					<h2 id="title2"><strong>Plugin analysis by plshelp gravity</strong></h2>
 					{% for key, value in gravityplugins.items() %}
 						{% if value['attributes'] is not none %}
-							<div class="subtitle-light" id="info5"><strong>{{key}}</strong></div>
-							{% for i in value['attributes'] %}
-								<div class="text-danger">{{i}}</div>
-							{% endfor %}
-						{% elif value['latest_build'] is not none %}
+							{% if value['latest_build'] is none %}
+								<div class="subtitle-light" id="info5"><strong>{{key}}</strong></div>
+								{% for i in value['attributes'] %}
+									<div class="text-danger">{{i}}</div>
+								{% endfor %}
+							{% else %}
+								{% for i in plugins %}
+									{% if key in i %}
+										<div class="subtitle-light" id="info5"><strong>{{i}}</strong> (latest build {{value['latest_build']}})</div>
+										{% for i in value['attributes'] %}
+											<div class="text-danger">{{i}}</div>
+										{% endfor %}
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+						{% elif value['attributes'] is none and value['latest_build'] is not none %}
 							{% for i in plugins %}
 								{% if key in i %}
 									<div class="subtitle-light" id="info5"><strong>{{i}}</strong> (latest build {{value['latest_build']}})</div>

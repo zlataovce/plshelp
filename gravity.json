@@ -13,7 +13,7 @@
 		"ci": "github",
 		"link": "dmulloy2/ProtocolLib"
 	},
-	"ScreamingBedWars": {
+	"BedWars": {
 		"type": "normal",
 		"ci": "jenkins",
 		"link": "https://ci.screamingsandals.org/job/BedWars-0.x.x",
