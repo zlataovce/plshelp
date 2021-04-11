@@ -1,7 +1,7 @@
 {
 	"CitizensCMD": {
 		"type": "warn",
-		"desc": "NPC command plugins never had a reason to exist. Please use Citizens2 and their integrated NPC commands."
+		"desc": "NPC command plugins are no longer needed. Please use Citizens2 and their integrated NPC commands."
 	},
 	"Citizens": {
 		"type": "normal",
@@ -32,7 +32,7 @@
 	},
 	"CommandNPC": {
 		"type": "warn",
-		"desc": "NPC command plugins never had a reason to exist. Please use Citizens2 and their integrated NPC commands."
+		"desc": "NPC command plugins are no longer needed. Please use Citizens2 and their integrated NPC commands."
 	},
 	"LuckPerms": {
 		"type": "normal",
