@@ -70,8 +70,11 @@ def parse_intelligent():
                 data["gravity_classified_plugins"][i] = r
             elif isinstance(r, list):
                 data["gravity_classified_plugins"][i] = {"latest_build": None, "attributes": r}
-    if "Paper" in data["server_software"]:
-        data["paper_build"] = latest_paper_build(data["minecraft_version"])
+    if data["server_software"] is not None:
+        if "Paper" in data["server_software"]:
+            data["paper_build"] = latest_paper_build(data["minecraft_version"])
+        else:
+            data["paper_build"] = None
     else:
         data["paper_build"] = None
     return Response(dumps(data, indent=2), mimetype='application/json')
@@ -145,6 +148,13 @@ def showv2():
                     re["gravity_classified_plugins"][i] = r
                 elif isinstance(r, str):
                     re["gravity_classified_plugins"][i] = {"latest_build": None, "attributes": r}
+        if data["server_software"] is not None:
+            if "Paper" in data["server_software"]:
+                data["paper_build"] = latest_paper_build(data["minecraft_version"])
+            else:
+                data["paper_build"] = None
+        else:
+            data["paper_build"] = None
         pasteurl = thread.result()
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + pasteurl
         remove(filename)
