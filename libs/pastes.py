@@ -16,8 +16,12 @@ class Paste:
             urlretrieve(self.url, self.filename)
             return True
         elif "https://paste.gg" in self.url and not "raw" in self.url:
-            urlretrieve(self.pastegg(), self.filename)
-            return True
+            url = self.pastegg()
+            if url is False:
+                return False
+            else:
+                urlretrieve(url, self.filename)
+                return True
         elif "https://pastebin.com" in self.url:
             paste_id = self.url.split("pastebin.com/")[1]
             urlretrieve("https://pastebin.com/raw/" + paste_id, self.filename)
@@ -28,4 +32,7 @@ class Paste:
     def pastegg(self):
         r = requests.get(self.url).content
         soup = BeautifulSoup(r, "html.parser")
-        return "https://paste.gg/" + soup.find("a", {"class": "is-pulled-right button"})['href']
+        try:
+            return "https://paste.gg/" + soup.find("a", {"class": "is-pulled-right button"})['href']
+        except TypeError:
+            return False
