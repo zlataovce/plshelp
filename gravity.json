@@ -60,5 +60,35 @@
 		"type": "normal",
 		"ci": "jenkins",
 		"link": "https://ci.codemc.io/job/Updated-NoCheatPlus/job/Updated-NoCheatPlus"
+	},
+	"Multiverse-Core": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.onarandombox.com/job/Multiverse-Core"
+	},
+	"Multiverse-Portals": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.onarandombox.com/job/Multiverse-Portals"
+	},
+	"Multiverse-SignPortals": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.onarandombox.com/job/Multiverse-SignPortals"
+	},
+	"Multiverse-NetherPortals": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.onarandombox.com/job/Multiverse-NetherPortals"
+	},
+	"Multiverse-Inventories": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.onarandombox.com/job/Multiverse-Inventories"
+	},
+	"SlimeWorldManager": {
+		"type": "normal",
+		"ci":"github",
+		"link":"Grinderwolf/Slime-World-Manager"
 	}
 }
