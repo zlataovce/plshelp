@@ -6,7 +6,7 @@ from os import remove, environ
 import requests
 from pbwrap import Pastebin
 from dotenv import load_dotenv
-from libs.utils import check_filename, sanitize, jsonf
+from libs.utils import check_filename, sanitize, jsonf, fetch_updates
 from configparser import ConfigParser
 import concurrent.futures
 from libs.classifylib import classify
@@ -18,6 +18,9 @@ app = Flask('')
 
 config = ConfigParser()
 config.read('config.ini')
+
+if config["UPDATE"].getboolean("GravityAutoUpdate"):
+    fetch_updates(config["UPDATE"]["GravityFile"], config["UPDATE"]["LangFile"])
 
 gravity = jsonf("gravity.json")
 lang = jsonf("lang.json")
