@@ -1,6 +1,10 @@
 {
 	"attribs": {
 		"risksnapshots": "This plugin is known to have broken snapshots/dev builds. (risksnapshots)",
-		"java11": "This plugin needs Java 11 or higher to function. (java11)"
+		"java11": "This plugin needs Java 11 or higher to function. (java11)",
+		"skriptwarn": "Skript can be very resource intensive and it is not recommended to make big skripts. (skriptwarn)",
+		"outdated": "This plugin is not maintained anymore. (outdated)",
+		"resourceintensive": "This plugin is/can be very resource intensive. (resourceintensive)",
+		"poorperformance": "This plugin is known to have poor performance. (poorperformance)"
 	}
 }

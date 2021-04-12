@@ -39,5 +39,16 @@
 		"ci": "jenkins",
 		"regex": "\\d.\\d.\\d\\d",
 		"link": "https://ci.lucko.me/job/LuckPerms"
+	},
+	"PlaceholderAPI": {
+		"type": "normal",
+		"ci": "github",
+		"link": "PlaceholderAPI/PlaceholderAPI"
+	},
+	"Skript": {
+		"type": "normal",
+		"ci": "github",
+		"link": "SkriptLang/Skript",
+		"attribs": ["skriptwarn", "resourceintensive"]
 	}
 }
