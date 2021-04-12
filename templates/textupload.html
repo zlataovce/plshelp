@@ -25,10 +25,10 @@
 		}
 	</style>
 	<script type="text/javascript">
-		$(document).ready(function WindowLoad(event) {
+		$(document).ready(function WindowLoad() {
 			let logfile = document.getElementById("logfile");
 			function dropfile(file) {
-				var reader = new FileReader();
+				let reader = new FileReader();
 				reader.onload = function(e) {
 					logfile.value = e.target.result;
 				};
@@ -37,7 +37,7 @@
 
 			logfile.ondrop = function(e) {
 				e.preventDefault();
-				var file = e.dataTransfer.files[0];
+				let file = e.dataTransfer.files[0];
 				dropfile(file);
 			};
 		});

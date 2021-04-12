@@ -5,7 +5,7 @@ from configparser import ConfigParser
 class Parse:
     def __init__(self, filename):
         """Parses the minecraft logs and returns the results in a dict."""
-        with open(filename, "r") as f:
+        with open(filename, "r", encoding='utf-8', errors='ignore') as f:
             self.subject = f.readlines()
         self.config = ConfigParser()
         self.config.read('config.ini')

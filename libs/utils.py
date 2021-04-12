@@ -17,12 +17,15 @@ def check_filename():
 
 
 def sanitize(text):
-    return text.replace("\\", "").replace("❤", "")
+    to_sanitize = ["✘", "\\", "❤", "✔"]
+    for i in to_sanitize:
+        text = text.replace(i, "")
+    return text
 
 
 def jsonf(filename):
-	with open(filename, "r") as f:
-		return load(f)
+    with open(filename, "r") as f:
+        return load(f)
 
 
 def fetch_updates(gravity_file, lang_file):

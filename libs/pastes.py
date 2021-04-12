@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from libs.utils import check_filename
 
+
 class Paste:
     def __init__(self, url):
         """Identifies a service used to share the logs. Downloads the file from the service."""
@@ -15,7 +16,7 @@ class Paste:
         if "https://paste.gg" in self.url and "raw" in self.url:
             urlretrieve(self.url, self.filename)
             return True
-        elif "https://paste.gg" in self.url and not "raw" in self.url:
+        elif "https://paste.gg" in self.url and "raw" not in self.url:
             url = self.pastegg()
             if url is False:
                 return False

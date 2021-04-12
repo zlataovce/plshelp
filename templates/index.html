@@ -14,27 +14,25 @@
 </head>
 
 <body id="body">
-	<div>
-		<div class="content-wrap">
-			<!-- navbar -->
-			{% include "navbar.html" %}
-			<!--Page Content-->
-			<div id="container" class="margin pt-5">
-				<h1 id="title" class="title-light">URL of your paste.gg/pastebin.com link:</h1>
-				<form action="/show" method="post">
-					<div class="form-group">
-						<div class="url-box">
-							<input type="text" class="form-control" name="url" id="url" autocomplete="off" placeholder="Link"></input>
-						</div>
-						<p></p>
-						<input id="parse" type="submit" class="btn btn-dark shadow mt-2" value="Parse"></input>
+	<div class="content-wrap">
+		<!-- navbar -->
+		{% include "navbar.html" %}
+		<!--Page Content-->
+		<div id="container" class="margin pt-5">
+			<h1 id="title" class="title-light">URL of your paste.gg/pastebin.com link:</h1>
+			<form action="/show" method="post">
+				<div class="form-group">
+					<div class="url-box">
+						<input type="text" class="form-control" name="url" id="url" autocomplete="off" placeholder="Link"></input>
 					</div>
-				</form>
-			</div>
-			<!-- Footer -->
-			{% include "footer.html" %}
+					<p></p>
+					<input id="parse" type="submit" class="btn btn-dark shadow mt-2" value="Parse"></input>
+				</div>
+			</form>
 		</div>
-
+		<!-- Footer -->
+		{% include "footer.html" %}
+	</div>
 </body>
 
 </html>

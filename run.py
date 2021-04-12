@@ -25,12 +25,13 @@ if config["UPDATE"].getboolean("GravityAutoUpdate"):
 gravity = jsonf("gravity.json")
 lang = jsonf("lang.json")
 
-##@app.errorhandler(404)
-##def page_not_found(e):
-##    config = ConfigParser()
-##    config.read('config.ini')
-##    # note that we set the 404 status explicitly
-##    return render_template('templates/404.html', domain=config['FLASK']['Domain']), 404
+
+# @app.errorhandler(404)
+# def page_not_found(e):
+#     config = ConfigParser()
+#     config.read('config.ini')
+#     # note that we set the 404 status explicitly
+#     return render_template('templates/404.html', domain=config['FLASK']['Domain']), 404
 
 
 def upload_paste_thread(text):
@@ -94,6 +95,7 @@ def index2():
     global config
     return render_template("textupload.html", domain=config['FLASK']['Domain'])
 
+
 @app.route("/logs")
 def loglist():
     global config
@@ -112,7 +114,8 @@ def show():
                 return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                        minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                        reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                       sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"), domain=config['FLASK']['Domain'], errors=re["errors"],
+                                       sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"),
+                                       domain=config['FLASK']['Domain'], errors=re["errors"],
                                        gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
             else:
                 return "The paste URL was wrong!", 400
@@ -124,7 +127,8 @@ def show():
             return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                    minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"), domain=config['FLASK']['Domain'], errors=re["errors"],
+                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"),
+                                   domain=config['FLASK']['Domain'], errors=re["errors"],
                                    gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
         else:
             return "The paste URL was wrong!", 400
@@ -151,13 +155,13 @@ def showv2():
                     re["gravity_classified_plugins"][i] = r
                 elif isinstance(r, str):
                     re["gravity_classified_plugins"][i] = {"latest_build": None, "attributes": r}
-        if data["server_software"] is not None:
-            if "Paper" in data["server_software"]:
-                data["paper_build"] = latest_paper_build(data["minecraft_version"])
+        if re["server_software"] is not None:
+            if "Paper" in re["server_software"]:
+                re["paper_build"] = latest_paper_build(re["minecraft_version"])
             else:
-                data["paper_build"] = None
+                re["paper_build"] = None
         else:
-            data["paper_build"] = None
+            re["paper_build"] = None
         pasteurl = thread.result()
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + pasteurl
         remove(filename)
@@ -165,7 +169,8 @@ def showv2():
             return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                    minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl, domain=config['FLASK']['Domain'], errors=re["errors"],
+                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl,
+                                   domain=config['FLASK']['Domain'], errors=re["errors"],
                                    gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
         except KeyError:
             return "Incomplete logs!", 400
