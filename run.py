@@ -1,16 +1,18 @@
-from flask import Flask, request, Response, render_template
-from libs.parselib import Parse
-from libs.pastes import Paste
+import concurrent.futures
+from configparser import ConfigParser
 from json import dumps
 from os import remove, environ
-import requests
-from pbwrap import Pastebin
+
 from dotenv import load_dotenv
-from libs.utils import check_filename, sanitize, jsonf, fetch_updates
-from configparser import ConfigParser
-import concurrent.futures
-from libs.classifylib import classify
+from flask import Flask, request, Response, render_template
+from pbwrap import Pastebin
+
+import libs.exceptions
 from libs.apis import latest_paper_build
+from libs.classifylib import classify
+from libs.parselib import Parse
+from libs.pastes import Paste
+from libs.utils import check_filename, sanitize, jsonf, fetch_updates
 
 load_dotenv()
 
@@ -24,6 +26,56 @@ if config["UPDATE"].getboolean("GravityAutoUpdate"):
 
 gravity = jsonf("gravity.json")
 lang = jsonf("lang.json")
+
+
+def parsev1(url, webresponse=True):
+    paster = Paste(url)
+    if paster.identify() is False:
+        if webresponse:
+            return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
+        else:
+            raise libs.exceptions.InvalidURL
+    data = Parse(paster.filename).analysis()
+    remove(paster.filename)
+    if webresponse:
+        return Response(dumps(data, indent=2), mimetype='application/json')
+    else:
+        return data
+
+
+def parsev2(url, webresponse=True, directfile=False):
+    global gravity, lang
+    if directfile is True:
+        data = Parse(url).analysis()
+        remove(url)
+    else:
+        paster = Paste(url)
+        if paster.identify() is False:
+            if webresponse:
+                return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
+            else:
+                raise libs.exceptions.InvalidURL
+        data = Parse(paster.filename).analysis()
+        remove(paster.filename)
+    data["gravity_classified_plugins"] = {}
+    for i in gravity.keys():
+        if i in data["plugins_altver"]:
+            r = classify(gravity, lang, i)
+            if isinstance(r, dict):
+                data["gravity_classified_plugins"][i] = r
+            elif isinstance(r, list):
+                data["gravity_classified_plugins"][i] = {"latest_build": None, "attributes": r}
+    if data["server_software"] is not None:
+        if "Paper" in data["server_software"]:
+            data["paper_build"] = latest_paper_build(data["minecraft_version"])
+        else:
+            data["paper_build"] = None
+    else:
+        data["paper_build"] = None
+    if webresponse:
+        return Response(dumps(data, indent=2), mimetype='application/json')
+    else:
+        return data
 
 
 # @app.errorhandler(404)
@@ -45,43 +97,13 @@ def upload_paste_thread(text):
 
 
 @app.route('/api/v1')
-def parse():
-    url = request.args.get("url")
-    paster = Paste(url)
-    if paster.identify() is False:
-        return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
-    parser = Parse(paster.filename)
-    data = dumps(parser.analysis(), indent=2)
-    remove(paster.filename)
-    return Response(data, mimetype='application/json')
+def web_parsev1():
+    return parsev1(request.args.get("url"))
 
 
 @app.route('/api/v2')
-def parse_intelligent():
-    global gravity, lang
-    url = request.args.get("url")
-    paster = Paste(url)
-    if paster.identify() is False:
-        return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
-    parser = Parse(paster.filename)
-    data = parser.analysis()
-    remove(paster.filename)
-    data["gravity_classified_plugins"] = {}
-    for i in gravity.keys():
-        if i in data["plugins_altver"]:
-            r = classify(gravity, lang, i)
-            if isinstance(r, dict):
-                data["gravity_classified_plugins"][i] = r
-            elif isinstance(r, list):
-                data["gravity_classified_plugins"][i] = {"latest_build": None, "attributes": r}
-    if data["server_software"] is not None:
-        if "Paper" in data["server_software"]:
-            data["paper_build"] = latest_paper_build(data["minecraft_version"])
-        else:
-            data["paper_build"] = None
-    else:
-        data["paper_build"] = None
-    return Response(dumps(data, indent=2), mimetype='application/json')
+def web_parsev2():
+    return parsev2(request.args.get("url"))
 
 
 @app.route("/")
@@ -102,66 +124,53 @@ def loglist():
     return render_template("loglist.html", domain=config['FLASK']['Domain'])
 
 
+# noinspection PyTypeChecker
 @app.route("/show", methods=["GET", "POST"])
 def show():
     global config
     if request.method == "GET":
+        try:
+            re = parsev2(request.args.get("url"), webresponse=False)
+        except libs.exceptions.InvalidURL:
+            return "The paste URL was wrong!", 400
+        shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.args.get("url")
         if request.args.get("type") == "share":
-            r = requests.get(config['FLASK']['Domain'] + "/api/v2?url=" + request.args.get("url"))
-            shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.args.get("url")
-            if r.status_code != 400:
-                re = r.json()
-                return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
-                                       minecraft_version=re["minecraft_version"], server_software=re["server_software"],
-                                       reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                       sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"),
-                                       domain=config['FLASK']['Domain'], errors=re["errors"],
-                                       gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
-            else:
-                return "The paste URL was wrong!", 400
-    if request.method == "POST":
-        r = requests.get(config['FLASK']['Domain'] + "/api/v2?url=" + request.form.get("url"))
-        shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.form.get("url")
-        if r.status_code != 400:
-            re = r.json()
             return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                    minecraft_version=re["minecraft_version"], server_software=re["server_software"],
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
-                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"),
+                                   sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"),
                                    domain=config['FLASK']['Domain'], errors=re["errors"],
                                    gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
-        else:
+    if request.method == "POST":
+        try:
+            re = parsev2(request.args.get("url"), webresponse=False)
+        except libs.exceptions.InvalidURL:
             return "The paste URL was wrong!", 400
+        shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.form.get("url")
+        return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
+                               minecraft_version=re["minecraft_version"], server_software=re["server_software"],
+                               reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
+                               sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"),
+                               domain=config['FLASK']['Domain'], errors=re["errors"],
+                               gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
 
 
+# noinspection PyTypeChecker
 @app.route("/showv2", methods=["GET", "POST"])
 def showv2():
     global config, gravity, lang
     if request.method == "GET":
-        index2()
+        return index2()
     if request.method == "POST":
         filename = check_filename()
         with open(filename, "w") as f:
             f.write(sanitize(request.form.get("logfile")))
         with concurrent.futures.ThreadPoolExecutor() as executor:
             thread = executor.submit(upload_paste_thread, sanitize(request.form.get("logfile")))
-        parser = Parse(filename)
-        re = parser.analysis()
-        re["gravity_classified_plugins"] = {}
-        for i in gravity.keys():
-            if i in re["plugins_altver"]:
-                r = classify(gravity, lang, i)
-                if isinstance(r, dict):
-                    re["gravity_classified_plugins"][i] = r
-                elif isinstance(r, str):
-                    re["gravity_classified_plugins"][i] = {"latest_build": None, "attributes": r}
-        if re["server_software"] is not None:
-            if "Paper" in re["server_software"]:
-                re["paper_build"] = latest_paper_build(re["minecraft_version"])
-            else:
-                re["paper_build"] = None
-        else:
-            re["paper_build"] = None
+        try:
+            re = parsev2(filename, webresponse=False, directfile=True)
+        except libs.exceptions.InvalidURL:
+            return "The paste URL was wrong!", 400
         pasteurl = thread.result()
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + pasteurl
         remove(filename)

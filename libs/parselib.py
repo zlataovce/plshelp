@@ -3,10 +3,13 @@ from configparser import ConfigParser
 
 # noinspection PyTypeChecker
 class Parse:
-    def __init__(self, filename):
+    def __init__(self, filename, text=False):
         """Parses the minecraft logs and returns the results in a dict."""
-        with open(filename, "r", encoding='utf-8', errors='ignore') as f:
-            self.subject = f.readlines()
+        if text is True:
+            self.subject = filename
+        else:
+            with open(filename, "r", encoding='utf-8', errors='ignore') as f:
+                self.subject = f.readlines()
         self.config = ConfigParser()
         self.config.read('config.ini')
         self.blacklist = self.config['PARSER']['WordIndexBlacklist'].split(",")
