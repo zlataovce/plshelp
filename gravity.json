@@ -88,7 +88,7 @@
 	},
 	"SlimeWorldManager": {
 		"type": "normal",
-		"ci":"github",
-		"link":"Grinderwolf/Slime-World-Manager"
+		"ci": "github",
+		"link": "Grinderwolf/Slime-World-Manager"
 	}
 }
