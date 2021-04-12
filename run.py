@@ -51,10 +51,8 @@ def parsev2(url, webresponse=True, directfile=False):
     else:
         paster = Paste(url)
         if paster.identify() is False:
-            if webresponse:
-                return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
-            else:
-                raise libs.exceptions.InvalidURL
+            print("QUERY: Invalid paste.gg URL while handling")
+            raise libs.exceptions.InvalidURL
         data = Parse(paster.filename).analysis()
         remove(paster.filename)
     data["gravity_classified_plugins"] = {}
@@ -132,7 +130,8 @@ def show():
         try:
             re = parsev2(request.args.get("url"), webresponse=False)
         except libs.exceptions.InvalidURL:
-            return "The paste URL was wrong!", 400
+            print("QUERY: Invalid paste.gg URL while handling (breakpoint 2)")
+            return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.args.get("url")
         if request.args.get("type") == "share":
             return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
@@ -143,9 +142,10 @@ def show():
                                    gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
     if request.method == "POST":
         try:
-            re = parsev2(request.args.get("url"), webresponse=False)
+            re = parsev2(request.form.get("url"), webresponse=False)
         except libs.exceptions.InvalidURL:
-            return "The paste URL was wrong!", 400
+            print("QUERY: Invalid paste.gg URL while handling (breakpoint 3)")
+            return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.form.get("url")
         return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                minecraft_version=re["minecraft_version"], server_software=re["server_software"],
@@ -170,10 +170,9 @@ def showv2():
         try:
             re = parsev2(filename, webresponse=False, directfile=True)
         except libs.exceptions.InvalidURL:
-            return "The paste URL was wrong!", 400
+            return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
         pasteurl = thread.result()
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + pasteurl
-        remove(filename)
         try:
             return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
                                    minecraft_version=re["minecraft_version"], server_software=re["server_software"],
