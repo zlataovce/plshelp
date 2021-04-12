@@ -50,5 +50,15 @@
 		"ci": "github",
 		"link": "SkriptLang/Skript",
 		"attribs": ["skriptwarn", "resourceintensive"]
+	},
+	"AntiCheatReloaded": {
+		"type": "normal",
+		"ci": "github",
+		"link": "Rammelkast/AntiCheatReloaded"
+	},
+	"NoCheatPlus": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.codemc.io/job/Updated-NoCheatPlus/job/Updated-NoCheatPlus"
 	}
 }
