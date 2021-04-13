@@ -1,8 +1,8 @@
-from os.path import exists
-from os import remove
-from random import randint
 from json import load
+from os import remove
+from os.path import exists
 from urllib.request import urlretrieve
+
 
 def sanitize(text):
     to_sanitize = ["✘", "\\", "❤", "✔"]

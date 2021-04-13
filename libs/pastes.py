@@ -1,7 +1,5 @@
-from urllib.request import urlretrieve
 import requests
 from bs4 import BeautifulSoup
-from libs.utils import check_filename
 
 
 class Paste:
