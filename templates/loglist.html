@@ -26,10 +26,10 @@
 
     $(document).ready(function() {
       if (localStorage.getItem("logs") === null) {
-        let logs = [];
+        var logs = [];
         localStorage.setItem("logs", JSON.stringify(logs));
       } else {
-        let logs = JSON.parse(localStorage.getItem("logs"));
+        var logs = JSON.parse(localStorage.getItem("logs"));
       }
       logs.forEach(function(item) {
         if (item.includes("Upload error")) {
