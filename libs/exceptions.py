@@ -1,2 +1,2 @@
-class InvalidURL(Exception):
+class InvalidURL(Exception):  # dummy exception
     pass
