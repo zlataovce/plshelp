@@ -4,18 +4,6 @@ from random import randint
 from json import load
 from urllib.request import urlretrieve
 
-
-def check_filename():
-    filename = "latest-" + str(randint(1, 1000)) + ".log"
-    if exists(filename):
-        while True:
-            filename = "latest-" + str(randint(1, 1000)) + ".log"
-            if not exists(filename):
-                return filename
-    else:
-        return filename
-
-
 def sanitize(text):
     to_sanitize = ["✘", "\\", "❤", "✔"]
     for i in to_sanitize:
@@ -43,3 +31,12 @@ def fetch_updates(gravity_file, lang_file):
     else:
         urlretrieve("https://raw.githubusercontent.com/zlataovce/plshelp/main/lang.json", lang_file)
         print("Downloaded the language file!")
+
+
+class Debugger:
+    def __init__(self):
+        self.state = False
+
+    def dprint(self, v):
+        if self.state is True:
+            print(v)

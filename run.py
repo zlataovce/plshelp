@@ -1,7 +1,8 @@
 import concurrent.futures
+import datetime
 from configparser import ConfigParser
 from json import dumps
-from os import remove, environ
+from os import environ
 
 from dotenv import load_dotenv
 from flask import Flask, request, Response, render_template
@@ -12,7 +13,7 @@ from libs.apis import latest_paper_build
 from libs.classifylib import classify
 from libs.parselib import Parse
 from libs.pastes import Paste
-from libs.utils import check_filename, sanitize, jsonf, fetch_updates
+from libs.utils import sanitize, jsonf, fetch_updates, Debugger
 
 load_dotenv()
 
@@ -20,6 +21,9 @@ app = Flask('')
 
 config = ConfigParser()
 config.read('config.ini')
+
+d = Debugger()
+d.state = config["GENERAL"].getboolean("Debugger")
 
 if config["UPDATE"].getboolean("GravityAutoUpdate"):
     fetch_updates(config["UPDATE"]["GravityFile"], config["UPDATE"]["LangFile"])
@@ -29,32 +33,45 @@ lang = jsonf("lang.json")
 
 
 def parsev1(url, webresponse=True):
+    global d
+    d.dprint("QUERY: Started processing")
+    time = datetime.datetime.now()
     paster = Paste(url)
-    if paster.identify() is False:
+    file = paster.identify()
+    if file is False:
         if webresponse:
             return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
         else:
             raise libs.exceptions.InvalidURL
-    data = Parse(paster.filename).analysis()
-    remove(paster.filename)
+    d.dprint("QUERY: Started analysis")
+    time_analysis = datetime.datetime.now()
+    data = Parse(file).analysis()
+    d.dprint("QUERY: Analysis finished in " + str(round((datetime.datetime.now() - time_analysis).microseconds / 1000)) + " milliseconds")
+    time_elapsed = datetime.datetime.now() - time
     if webresponse:
+        d.dprint("QUERY: Processed in " + str(time_elapsed.seconds) + " seconds")
         return Response(dumps(data, indent=2), mimetype='application/json')
     else:
+        d.dprint("QUERY: Processed in " + str(time_elapsed.seconds) + " seconds")
         return data
 
 
 def parsev2(url, webresponse=True, directfile=False):
-    global gravity, lang
+    global gravity, lang, d
+    d.dprint("QUERY: Started processing")
+    time = datetime.datetime.now()
     if directfile is True:
         data = Parse(url).analysis()
-        remove(url)
     else:
         paster = Paste(url)
-        if paster.identify() is False:
-            print("QUERY: Invalid paste.gg URL while handling")
+        file = paster.identify()
+        if file is False:
+            d.dprint("QUERY: Invalid paste.gg URL while handling")
             raise libs.exceptions.InvalidURL
-        data = Parse(paster.filename).analysis()
-        remove(paster.filename)
+        d.dprint("QUERY: Started analysis")
+        time_analysis = datetime.datetime.now()
+        data = Parse(file).analysis()
+        d.dprint("QUERY: Analysis finished in " + str(round((datetime.datetime.now() - time_analysis).microseconds / 1000)) + " milliseconds")
     data["gravity_classified_plugins"] = {}
     for i in gravity.keys():
         if i in data["plugins_altver"]:
@@ -70,9 +87,14 @@ def parsev2(url, webresponse=True, directfile=False):
             data["paper_build"] = None
     else:
         data["paper_build"] = None
+    time_elapsed = datetime.datetime.now() - time
     if webresponse:
+        d.dprint("QUERY: Finished processing, returning webresponse")
+        d.dprint("QUERY: Processed in " + str(time_elapsed.seconds) + " seconds")
         return Response(dumps(data, indent=2), mimetype='application/json')
     else:
+        d.dprint("QUERY: Finished processing, returning data")
+        d.dprint("QUERY: Processed in " + str(time_elapsed.seconds) + " seconds")
         return data
 
 
@@ -130,7 +152,6 @@ def show():
         try:
             re = parsev2(request.args.get("url"), webresponse=False)
         except libs.exceptions.InvalidURL:
-            print("QUERY: Invalid paste.gg URL while handling (breakpoint 2)")
             return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.args.get("url")
         if request.args.get("type") == "share":
@@ -144,7 +165,6 @@ def show():
         try:
             re = parsev2(request.form.get("url"), webresponse=False)
         except libs.exceptions.InvalidURL:
-            print("QUERY: Invalid paste.gg URL while handling (breakpoint 3)")
             return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
         shareurl = config['FLASK']['Domain'] + "/show?type=share&url=" + request.form.get("url")
         return render_template("show.html", plugins=re["plugins"], classifiederrors=re["classified_errors"],
@@ -162,13 +182,10 @@ def showv2():
     if request.method == "GET":
         return index2()
     if request.method == "POST":
-        filename = check_filename()
-        with open(filename, "w") as f:
-            f.write(sanitize(request.form.get("logfile")))
         with concurrent.futures.ThreadPoolExecutor() as executor:
             thread = executor.submit(upload_paste_thread, sanitize(request.form.get("logfile")))
         try:
-            re = parsev2(filename, webresponse=False, directfile=True)
+            re = parsev2(sanitize(request.form.get("logfile")).splitlines(), webresponse=False, directfile=True)
         except libs.exceptions.InvalidURL:
             return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
         pasteurl = thread.result()
