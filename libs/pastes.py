@@ -28,8 +28,10 @@ class Paste:
             return False
 
     def pastegg(self):
-        r = requests.get(self.url).content
-        soup = BeautifulSoup(r, "html.parser")
+        r = requests.get(self.url)
+        if not r.status_code == 200:
+            return False
+        soup = BeautifulSoup(r.content, "html.parser")
         try:
             return "https://paste.gg/" + soup.find("a", {"class": "is-pulled-right button"})['href']
         except TypeError:
