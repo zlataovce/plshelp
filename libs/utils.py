@@ -33,7 +33,8 @@ def fetch_updates(gravity_file, lang_file):  # fetching updates for the gravity 
         print("Downloaded the language file!")
 
 
-class Debugger:  # a simple print() debugger, toggleable
+class Debugger:
+    """A simple print() debugger, toggleable."""
     def __init__(self):
         self.state = False
 

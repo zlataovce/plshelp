@@ -111,12 +111,12 @@ function toggleVisibility(element, titlelem) {
   } else {
     titlelem.innerHTML = titlelem.innerHTML.replace("⯈", "⯆");
   }
-  toggleClass(document.getElementById(element), ['d-none']);
+  toggleClass(document.getElementById(element), ["d-none"]);
 }
 
 function toggleviewMode(button, simple, advanced) {
-  toggleClass(document.getElementById(simple), ['d-none']);
-  toggleClass(document.getElementById(advanced), ['d-none']);
+  toggleClass(document.getElementById(simple), ["d-none"]);
+  toggleClass(document.getElementById(advanced), ["d-none"]);
   if (button.innerHTML.includes("Simple mode")) {
     button.innerHTML = button.innerHTML.replace("Simple mode", "Advanced mode");
   } else {
