@@ -105,6 +105,9 @@
 					{% endif %}
 					<div id="info3" class="subtitle-light"><strong>Reloaded:</strong> {{reload}}</div>
 					<div id="info4" class="subtitle-light"><strong>Needs newer Java:</strong> {{needs_newer_java}}</div>
+					{% if cracked_plugins %}
+						<div class="text-danger">Server is likely running cracked plugins.</div>
+					{% endif %}
 				</div>
 			</div>
 			{% if gravityplugins %}
@@ -136,9 +139,6 @@
 							{% endfor %}
 						{% endif %}
 					{% endfor %}
-					{% if cracked_plugins %}
-						<div class="text-danger">Server is likely running cracked plugins.</div>
-					{% endif %}
 				</div>
 			</div>
 			{% endif %}
