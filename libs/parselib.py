@@ -128,7 +128,7 @@ class Parse:
                             pass
         for key, value in self.results["classified_errors"].items():  # setting defaults for unfilled results
             if not len(value):
-                self.results["classified_errors"][key] = None
+                self.results["classified_errors"].pop(key)
         return self.results
 
     # functions below are for setting defaults

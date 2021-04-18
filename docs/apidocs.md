@@ -112,7 +112,6 @@
     "at net.minecraft.server.v1_16_R3.DedicatedServer.b(DedicatedServer.java:418) ~[minecraft_server.jar:git-Paper-575]"
   ],
   "classified_errors": {
-    "LuckPerms": null,
     "VoidGenerator": [
       "[12:55:57] [Server thread/ERROR]: [VoidGenerator] The BiomeID: \"void\" is invalid. The biome defaulted to \"THE_VOID\".",
       "[12:56:01] [Server thread/ERROR]: [VoidGenerator] The BiomeID: \"void\" is invalid. The biome defaulted to \"THE_VOID\".",
@@ -121,27 +120,9 @@
       "[12:56:05] [Server thread/ERROR]: [VoidGenerator] The BiomeID: \"void\" is invalid. The biome defaulted to \"THE_VOID\".",
       "[12:56:06] [Server thread/ERROR]: [VoidGenerator] The BiomeID: \"void\" is invalid. The biome defaulted to \"THE_VOID\"."
     ],
-    "PlaceholderAPI": null,
-    "AmkMcAuth": null,
-    "HolographicDisplays": null,
-    "Vault": null,
-    "ServersNPC": null,
-    "LPC": null,
-    "WorldEdit": null,
-    "OldCombatMechanics": null,
-    "TNTRun_reloaded": null,
-    "Scoreboard-revision": null,
     "Essentials": [
       "[12:55:53] [Server thread/ERROR]: [Essentials] You are running an unsupported server version!"
     ],
-    "PlotSquared": null,
-    "EssentialsSpawn": null,
-    "Multiverse-Core": null,
-    "WorldGuard": null,
-    "TheBridge": null,
-    "Essentials_WarpGUI": null,
-    "Multiverse-Inventories": null,
-    "IridiumSkyblock": null,
     "BedWars": [
       "[12:57:47] [Server thread/WARN]: [BedWars] Task #3006 for BedWars v0.2.15 generated an exception",
       "java.lang.NullPointerException: null",
@@ -160,7 +141,6 @@
       "at net.minecraft.server.v1_16_R3.MinecraftServer.b(MinecraftServer.java:1413) ~[minecraft_server.jar:git-Paper-575]",
       "at net.minecraft.server.v1_16_R3.DedicatedServer.b(DedicatedServer.java:418) ~[minecraft_server.jar:git-Paper-575]"
     ],
-    "PaintballBattle": null,
     "SBAHypixelify": [
       "[12:57:45] [Server thread/ERROR]: Could not pass event BedwarsGameStartedEvent to SBAHypixelify v1.4.3",
       "java.lang.NullPointerException: null",
@@ -297,7 +277,6 @@
     "at net.minecraft.server.v1_16_R3.DedicatedServer.b(DedicatedServer.java:418) ~[minecraft_server.jar:git-Paper-575]"
   ],
   "classified_errors": {
-    "LuckPerms": null,
     "VoidGenerator": [
       "[12:55:57] [Server thread/ERROR]: [VoidGenerator] The BiomeID: \"void\" is invalid. The biome defaulted to \"THE_VOID\".",
       "[12:56:01] [Server thread/ERROR]: [VoidGenerator] The BiomeID: \"void\" is invalid. The biome defaulted to \"THE_VOID\".",
@@ -306,27 +285,9 @@
       "[12:56:05] [Server thread/ERROR]: [VoidGenerator] The BiomeID: \"void\" is invalid. The biome defaulted to \"THE_VOID\".",
       "[12:56:06] [Server thread/ERROR]: [VoidGenerator] The BiomeID: \"void\" is invalid. The biome defaulted to \"THE_VOID\"."
     ],
-    "PlaceholderAPI": null,
-    "AmkMcAuth": null,
-    "HolographicDisplays": null,
-    "Vault": null,
-    "ServersNPC": null,
-    "LPC": null,
-    "WorldEdit": null,
-    "OldCombatMechanics": null,
-    "TNTRun_reloaded": null,
-    "Scoreboard-revision": null,
     "Essentials": [
       "[12:55:53] [Server thread/ERROR]: [Essentials] You are running an unsupported server version!"
     ],
-    "PlotSquared": null,
-    "EssentialsSpawn": null,
-    "Multiverse-Core": null,
-    "WorldGuard": null,
-    "TheBridge": null,
-    "Essentials_WarpGUI": null,
-    "Multiverse-Inventories": null,
-    "IridiumSkyblock": null,
     "BedWars": [
       "[12:57:47] [Server thread/WARN]: [BedWars] Task #3006 for BedWars v0.2.15 generated an exception",
       "java.lang.NullPointerException: null",
@@ -361,7 +322,6 @@
       "at net.minecraft.server.v1_16_R3.MinecraftServer.b(MinecraftServer.java:1413) ~[minecraft_server.jar:git-Paper-575]",
       "at net.minecraft.server.v1_16_R3.DedicatedServer.b(DedicatedServer.java:418) ~[minecraft_server.jar:git-Paper-575]"
     ],
-    "PaintballBattle": null,
     "SBAHypixelify": [
       "[12:57:45] [Server thread/ERROR]: Could not pass event BedwarsGameStartedEvent to SBAHypixelify v1.4.3",
       "java.lang.NullPointerException: null",
