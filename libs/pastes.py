@@ -29,7 +29,7 @@ class Paste:
 
     def pastegg(self):
         r = requests.get(self.url)
-        if not r.status_code == 200:
+        if not r.ok:
             return False
         soup = BeautifulSoup(r.content, "html.parser")
         try:

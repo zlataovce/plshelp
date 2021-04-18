@@ -6,7 +6,7 @@ from os import environ
 from sys import argv
 
 from dotenv import load_dotenv
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, render_template, abort
 from pbwrap import Pastebin
 
 import libs.exceptions
@@ -126,13 +126,19 @@ def upload_paste_thread(text):
 # a flask wrapper for the api function
 @app.route('/api/v1')
 def web_parsev1():
-    return parsev1(request.args.get("url"))
+    try:
+        return parsev1(request.args.get("url"))
+    except libs.exceptions.InvalidURL:
+        return abort(400)
 
 
 # a flask wrapper for the api function
 @app.route('/api/v2')
 def web_parsev2():
-    return parsev2(request.args.get("url"))
+    try:
+        return parsev2(request.args.get("url"))
+    except libs.exceptions.InvalidURL:
+        return abort(400)
 
 
 # a flask wrapper for the index.html template
