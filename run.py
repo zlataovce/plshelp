@@ -97,11 +97,11 @@ def parsev2(url, webresponse=True, directfile=False):  # api v2
     time_elapsed = datetime.datetime.now() - time
     if webresponse:
         d.dprint("QUERY: Finished processing, returning webresponse")
-        d.dprint("QUERY: Processed in " + str(time_elapsed.seconds) + " seconds")
+        d.dprint("QUERY: Processed in " + str(time_elapsed.microseconds / 1000) + " milliseconds")
         return Response(dumps(data, indent=2), mimetype='application/json')
     else:
         d.dprint("QUERY: Finished processing, returning data")
-        d.dprint("QUERY: Processed in " + str(time_elapsed.seconds) + " seconds")
+        d.dprint("QUERY: Processed in " + str(time_elapsed.microseconds / 1000) + " milliseconds")
         return data
 
 
