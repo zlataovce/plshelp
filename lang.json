@@ -5,6 +5,8 @@
 		"skriptwarn": "Skript can be very resource intensive and it is not recommended to make big skripts. (skriptwarn)",
 		"outdated": "This plugin is not maintained anymore. (outdated)",
 		"resourceintensive": "This plugin is/can be very resource intensive. (resourceintensive)",
-		"poorperformance": "This plugin is known to have poor performance. (poorperformance)"
+		"poorperformance": "This plugin is known to have poor performance. (poorperformance)",
+		"packetwarn": "Mixed client vs server versions can sometimes cause packet-related issues. (packetwarn)",
+		"bedrock": "Bedrock clients are unsupportable. Please do all debugging with a Java Edition client. (bedrock)"
 	}
 }

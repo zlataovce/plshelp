@@ -136,6 +136,9 @@
 							{% endfor %}
 						{% endif %}
 					{% endfor %}
+					{% if cracked_plugins %}
+						<div class="text-danger">Server is likely running cracked plugins.</div>
+					{% endif %}
 				</div>
 			</div>
 			{% endif %}

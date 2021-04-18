@@ -12,6 +12,7 @@ class Parse:
         self.blacklist = self.config['PARSER']['WordIndexBlacklist'].split(",")
         self.errorblacklist = self.config['PARSER']['ErrorBlacklist'].split(",")
         self.errorwhitelist = self.config['PARSER']['ErrorWhitelist'].split(",")
+        self.crackedkeywords = self.config['PARSER']['CrackedPluginKeywords'].split(",")
         self.results = {
             "plugins": [],
             "plugins_altver": [],
@@ -84,12 +85,16 @@ class Parse:
 
                 if 'Wrong shop.yml/shop.groovy configuration!' in i:
                     self.results["sbw_wrongshop"] = True  # sbw extension
+                for x in self.crackedkeywords:  # checking if line contains keywords from cracked plugins
+                    if x in i:
+                        self.results["cracked_plugins"] = True
             except AttributeError:
                 continue
         # setting defaults for unfilled results
         self.check_defaults_bool('needs_newer_java')
         self.check_defaults_bool('reload')
         self.check_defaults_bool('sbw_wrongshop')
+        self.check_defaults_bool('cracked_plugins')
         self.check_defaults('minecraft_version', None)
         self.check_defaults('server_software', None)
         for i in self.results["plugins_altver"]:

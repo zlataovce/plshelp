@@ -90,5 +90,37 @@
 		"type": "normal",
 		"ci": "github",
 		"link": "Grinderwolf/Slime-World-Manager"
+	},
+	"PerWorldPlugins": {
+		"type": "warn",
+		"desc": "Messing with basic plugin core functionality can lead to unexpected issues."
+	},
+	"PlugMan": {
+		"type": "warn",
+		"desc": "PlugMan is dangerous and will cause unpredictable issues. Remove it."
+	},
+	"PluginManager": {
+		"type": "warn",
+		"desc": "PlugMan is dangerous and will cause unpredictable issues. Remove it."
+	},
+	"ViaVersion": {
+		"type": "normal",
+		"ci": "github",
+		"link": "ViaVersion/ViaVersion",
+		"attribs": ["packetwarn"]
+	},
+	"ProtocolSupport": {
+		"type": "warn",
+		"desc": "Mixed client vs server versions can sometimes cause packet-related issues."
+	},
+	"Geyser-Spigot": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.opencollab.dev/job/GeyserMC/job/Geyser/job/master",
+		"attribs": ["bedrock"]
+	},
+	"CitizensPlaceholderAPI": {
+		"type": "warn",
+		"desc": "To use placeholders with Citizens, just use the normal commands. You don't need a separate plugin for this anymore."
 	}
 }

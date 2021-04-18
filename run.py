@@ -27,7 +27,8 @@ d = Debugger()  # making the debugger
 d.state = config["GENERAL"].getboolean("Debugger")  # debugger state from config
 
 if config["UPDATE"].getboolean("GravityAutoUpdate"):
-    fetch_updates(config["UPDATE"]["GravityFile"], config["UPDATE"]["LangFile"])  # fetching the updates if autoupdate is enabled
+    fetch_updates(config["UPDATE"]["GravityFile"],
+                  config["UPDATE"]["LangFile"])  # fetching the updates if autoupdate is enabled
 
 # loading the json files
 gravity = jsonf("gravity.json")
@@ -49,7 +50,8 @@ def parsev1(url, webresponse=True):
     d.dprint("QUERY: Started analysis")
     time_analysis = datetime.datetime.now()
     data = Parse(file).analysis()  # performing the analysis
-    d.dprint("QUERY: Analysis finished in " + str(round((datetime.datetime.now() - time_analysis).microseconds / 1000)) + " milliseconds")  # printing the debugger data
+    d.dprint("QUERY: Analysis finished in " + str(round(
+        (datetime.datetime.now() - time_analysis).microseconds / 1000)) + " milliseconds")  # printing the debugger data
     time_elapsed = datetime.datetime.now() - time
     if webresponse:
         d.dprint("QUERY: Processed in " + str(time_elapsed.seconds) + " seconds")
@@ -74,7 +76,8 @@ def parsev2(url, webresponse=True, directfile=False):  # api v2
         d.dprint("QUERY: Started analysis")
         time_analysis = datetime.datetime.now()
         data = Parse(file).analysis()  # performing the analysis
-        d.dprint("QUERY: Analysis finished in " + str(round((datetime.datetime.now() - time_analysis).microseconds / 1000)) + " milliseconds")
+        d.dprint("QUERY: Analysis finished in " + str(
+            round((datetime.datetime.now() - time_analysis).microseconds / 1000)) + " milliseconds")
     data["gravity_classified_plugins"] = {}
     for i in gravity.keys():  # classifying the plugins by gravity
         if i in data["plugins_altver"]:
@@ -170,7 +173,8 @@ def show():
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
                                    sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"),
                                    domain=config['FLASK']['Domain'], errors=re["errors"],
-                                   gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
+                                   gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"],
+                                   cracked_plugins=re["cracked_plugins"])
     if request.method == "POST":
         try:
             re = parsev2(request.form.get("url"), webresponse=False)  # getting the data
@@ -182,7 +186,8 @@ def show():
                                reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
                                sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"),
                                domain=config['FLASK']['Domain'], errors=re["errors"],
-                               gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
+                               gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"],
+                               cracked_plugins=re["cracked_plugins"])
 
 
 # a flask wrapper for the show.html template with a different input method
@@ -196,7 +201,8 @@ def showv2():
         with concurrent.futures.ThreadPoolExecutor() as executor:  # uploading the POSTed log to pastebin
             thread = executor.submit(upload_paste_thread, sanitize(request.form.get("logfile")))
         try:
-            re = parsev2(sanitize(request.form.get("logfile")).splitlines(), webresponse=False, directfile=True)  # meanwhile analysing the file
+            re = parsev2(sanitize(request.form.get("logfile")).splitlines(), webresponse=False,
+                         directfile=True)  # meanwhile analysing the file
         except libs.exceptions.InvalidURL:
             return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400
         pasteurl = thread.result()  # getting the pastebin url from the thread
@@ -207,11 +213,13 @@ def showv2():
                                    reload=re["reload"], needs_newer_java=re["needs_newer_java"], share_url=shareurl,
                                    sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl,
                                    domain=config['FLASK']['Domain'], errors=re["errors"],
-                                   gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"])
+                                   gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"],
+                                   cracked_plugins=re["cracked_plugins"])
         except KeyError:
             return "Incomplete logs!", 400
 
-try:
+
+try:  # responsible for switching the ports when in a Heroku deployment
     if argv[1] == 'heroku':
         app.run(host="0.0.0.0", port=environ.get("PORT"))  # running the flask app
     else:
