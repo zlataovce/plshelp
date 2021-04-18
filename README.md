@@ -1,6 +1,6 @@
 # plshelp
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/110d0d83d60144a4bece1eb7a4fef804)](https://www.codacy.com/gh/zlataovce/plshelp/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zlataovce/plshelp&amp;utm_campaign=Badge_Grade)
-[![Better Uptime Badge](https://betteruptime.com/status-badges/v1/monitor/6ofe.svg)](https://betteruptime.com/?utm_source=status_badge)
+[![Better Uptime Badge](https://betteruptime.com/status-badges/v1/monitor/6ofe.svg)](https://status.mkdev.ml)
 [![Discord](https://img.shields.io/discord/828691352551293030)](https://discord.gg/FGf6z89kVR)
 
 
