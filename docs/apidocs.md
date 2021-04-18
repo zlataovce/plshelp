@@ -164,7 +164,7 @@
  - plugins: A list of plugins **with** versions, can be empty
  - plugins_altver: A list of plugins **without** versions, can be empty
  - errors: A list of identified errors, can be empty
- - classified_errors: A object with the errors sorted by plugins, plugin name has null instead of an array if there are no errors, can be empty (experimental)
+ - classified_errors: A object with the errors sorted by plugins, can be empty (experimental)
  - minecraft_version: A string with the identified Minecraft version, can be null
  - server_software: A string with the identified server software details, usually in the form "git-serversoftware-buildnumber", can be null
  - needs_newer_java: A boolean, stating if a UnsupportedClassVersionError was found, indicating outdated Java, can be true or false
@@ -382,7 +382,7 @@
 - plugins: A list of plugins **with** versions, can be empty
 - plugins_altver: A list of plugins **without** versions, can be empty
 - errors: A list of identified errors, can be empty
-- classified_errors: A object with the errors sorted by plugins, plugin name has null instead of an array if there are no errors, can be empty (experimental)
+- classified_errors: A object with the errors sorted by plugins, can be empty (experimental)
 - minecraft_version: A string with the identified Minecraft version, can be null
 - server_software: A string with the identified server software details, usually in the form "git-serversoftware-buildnumber", can be null
 - needs_newer_java: A boolean, stating if a UnsupportedClassVersionError was found, indicating outdated Java, can be true or false
