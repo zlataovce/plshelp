@@ -4,8 +4,9 @@
 ![Discord](https://img.shields.io/discord/828691352551293030)
 
 
-plshelp is an API (and a [website](https://plshelp.mkdev.ml)) for parsing Minecraft server logs which extracts useful information, e.g plugins list, plugin/server errors, server version / software, and more! It even has the ability to share your parsed logs with people too! 
+plshelp is an API (and a [website](https://plshelp.mkdev.ml)) for parsing Minecraft server logs which extracts useful information, e.g plugins list, plugin/server errors, server version / software, and more! It even has the ability to share your parsed logs with people too!  
 
+Ready for deploying on repl.it and Heroku!
 ## Usage
 
 ```
