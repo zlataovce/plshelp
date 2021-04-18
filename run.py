@@ -3,6 +3,7 @@ import datetime
 from configparser import ConfigParser
 from json import dumps
 from os import environ
+from sys import argv
 
 from dotenv import load_dotenv
 from flask import Flask, request, Response, render_template
@@ -210,5 +211,10 @@ def showv2():
         except KeyError:
             return "Incomplete logs!", 400
 
-
-app.run(host="0.0.0.0", port=8080)  # running the flask app
+try:
+    if argv[1] == 'heroku':
+        app.run(host="0.0.0.0", port=environ.get("PORT"))  # running the flask app
+    else:
+        app.run(host="0.0.0.0", port=8080)  # running the flask app
+except KeyError:
+    app.run(host="0.0.0.0", port=8080)  # running the flask app
