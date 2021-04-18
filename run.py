@@ -216,5 +216,5 @@ try:
         app.run(host="0.0.0.0", port=environ.get("PORT"))  # running the flask app
     else:
         app.run(host="0.0.0.0", port=8080)  # running the flask app
-except KeyError:
+except IndexError:
     app.run(host="0.0.0.0", port=8080)  # running the flask app
