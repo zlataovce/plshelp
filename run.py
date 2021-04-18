@@ -124,7 +124,7 @@ def upload_paste_thread(text):
 
 
 # a flask wrapper for the api function
-@app.route('/api/v1')
+@app.route('/api/v1', methods=["GET", "POST"])
 def web_parsev1():
     try:
         return parsev1(request.args.get("url"))
@@ -133,7 +133,7 @@ def web_parsev1():
 
 
 # a flask wrapper for the api function
-@app.route('/api/v2')
+@app.route('/api/v2', methods=["GET", "POST"])
 def web_parsev2():
     try:
         return parsev2(request.args.get("url"))
