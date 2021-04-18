@@ -94,6 +94,7 @@ def parsev2(url, webresponse=True, directfile=False):  # api v2
             data["paper_build"] = None
     else:
         data["paper_build"] = None
+    data["error_causing_plugins"] = data["classified_errors"].keys()
     time_elapsed = datetime.datetime.now() - time
     if webresponse:
         d.dprint("QUERY: Finished processing, returning webresponse")

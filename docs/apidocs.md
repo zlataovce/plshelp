@@ -375,7 +375,8 @@
       "attributes": null
     }
   },
-  "paper_build": 599
+  "paper_build": 599,
+  "error_causing_plugins": ["VoidGenerator", "Essentials", "BedWars", "SBAHypixelify"]
 }
 ```
 
@@ -393,3 +394,4 @@
   - latest_build: A string/integer showing the latest build of the indicated plugin, can be null if it cannot be determined
   - attributes: An array with warnings from plshelp gravity for this plugin, can be null if there are no warnings
 - paper_build: An integer showing the latest build of Paper (can be null if the server software isn't Paper)
+- error_causing_plugins: An array containing the troublesome plugin names
