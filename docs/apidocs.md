@@ -375,7 +375,9 @@
       "attributes": null
     }
   },
-  "paper_build": 599,
+  "paper_build": 601,
+  "current_paper_build": 575,
+  "paper_outdated": 26,
   "error_causing_plugins": ["VoidGenerator", "Essentials", "BedWars", "SBAHypixelify"]
 }
 ```
