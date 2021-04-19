@@ -7,6 +7,7 @@
 		"resourceintensive": "This plugin is/can be very resource intensive. (resourceintensive)",
 		"poorperformance": "This plugin is known to have poor performance. (poorperformance)",
 		"packetwarn": "Mixed client vs server versions can sometimes cause packet-related issues. (packetwarn)",
-		"bedrock": "Bedrock clients are unsupportable. Please do all debugging with a Java Edition client. (bedrock)"
+		"bedrock": "Bedrock clients are unsupportable. Please do all debugging with a Java Edition client. (bedrock)",
+		"authbreaker": "Known for breaking authentication. (authbreaker)"
 	}
 }

@@ -122,5 +122,11 @@
 	"CitizensPlaceholderAPI": {
 		"type": "warn",
 		"desc": "To use placeholders with Citizens, just use the normal commands. You don't need a separate plugin for this anymore."
+	},
+	"floodgate": {
+		"type": "normal",
+		"ci": "jenkins",
+		"link": "https://ci.opencollab.dev/job/GeyserMC/job/Floodgate/job/master",
+		"attribs": ["authbreaker"]
 	}
 }
