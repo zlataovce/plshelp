@@ -154,6 +154,7 @@
   },
   "minecraft_version": "1.16.5",
   "server_software": "git-Paper-575",
+  "java_version": "11",
   "reload": true,
   "needs_newer_java": false,
   "sbw_wrongshop": false,
@@ -171,6 +172,7 @@
  - reload: A boolean, indicating if the server has been reloaded, can be true or false
  - sbw_wrongshop: A boolean exclusive to ScreamingBedWars, indicating if the shop.yml is configured wrongly, can be true of false
  - cracked_plugins: A boolean indicating if the server is running cracked plugins
+ - java_version: A string indicating the Java version of the server (can be 8, 11, 14+ or null)
 
 
 ## /api/v2
@@ -335,6 +337,7 @@
   },
   "minecraft_version": "1.16.5",
   "server_software": "git-Paper-575",
+  "java_version": "11",
   "reload": true,
   "needs_newer_java": false,
   "sbw_wrongshop": false,
@@ -399,3 +402,4 @@
 - current_paper_build: An integer showing the build of Paper that is installed on the server (can be null if the server software isn't Paper)
 - outdated_paper: An integer showing by how many builds is the installed Paper behind the latest, the result is 0 if Paper is up-to-date (can be null if the server software isn't Paper)
 - error_causing_plugins: An array containing the troublesome plugin names
+- java_version: A string indicating the Java version of the server (can be 8, 11, 14+ or null)

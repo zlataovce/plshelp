@@ -17,13 +17,18 @@ class Parse:
             "plugins": [],
             "plugins_altver": [],
             "errors": [],
-            "classified_errors": {}
+            "classified_errors": {},
+            "minecraft_version": None,
+            "server_software": None,
+            "java_version": None
         }  # premature results defining
 
     def analysis(self):
         start_exception_linecnt = False  # this is just including the lines of exceptions
         exception_linecnt = 0  # for counting the lines of exceptions
         for i in self.subject:
+            if self.results["java_version"] is None:
+                self.process_java_version(i)
             try:
                 if start_exception_linecnt is True:  # ignoring classifying and just appending the lines
                     # if they are a part of an exception
@@ -95,8 +100,6 @@ class Parse:
         self.check_defaults_bool('reload')
         self.check_defaults_bool('sbw_wrongshop')
         self.check_defaults_bool('cracked_plugins')
-        self.check_defaults('minecraft_version', None)
-        self.check_defaults('server_software', None)
         for i in self.results["plugins_altver"]:
             self.results["classified_errors"][i] = []  # making defaults for classified_errors
         for i in self.results["plugins_altver"]:
@@ -145,3 +148,14 @@ class Parse:
                 pass
         except KeyError:
             self.results[value] = defaults
+
+    def process_java_version(self, i):
+        if "Use --illegal-access=warn to enable warnings of further illegal reflective access operations" in i:
+            self.results["java_version"] = "11"  # based on reflective access message
+        elif "java.lang.Thread.run" in i:
+            if "java.lang.Thread.run(Thread.java:748) [?:" in i:
+                self.results["java_version"] = "8"  # based on stacktrace
+            elif "java.lang.Thread.run(Thread.java:834)" in i:
+                self.results["java_version"] = "11"  # based on stacktrace
+            elif "java.lang.Thread.run(Thread.java:832)" in i:
+                self.results["java_version"] = "14+"  # based on stacktrace
