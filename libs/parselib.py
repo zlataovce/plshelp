@@ -28,7 +28,15 @@ class Parse:
         exception_linecnt = 0  # for counting the lines of exceptions
         for i in self.subject:
             if self.results["java_version"] is None:
-                self.process_java_version(i)
+                if "Use --illegal-access=warn to enable warnings of further illegal reflective access operations" in i:
+                    self.results["java_version"] = "11"  # based on reflective access message
+                elif "java.lang.Thread.run" in i:
+                    if "java.lang.Thread.run(Thread.java:748) [?:" in i:
+                        self.results["java_version"] = "8"  # based on stacktrace
+                    elif "java.lang.Thread.run(Thread.java:834)" in i:
+                        self.results["java_version"] = "11"  # based on stacktrace
+                    elif "java.lang.Thread.run(Thread.java:832)" in i:
+                        self.results["java_version"] = "14+"  # based on stacktrace
             try:
                 if start_exception_linecnt is True:  # ignoring classifying and just appending the lines
                     # if they are a part of an exception
@@ -148,14 +156,3 @@ class Parse:
                 pass
         except KeyError:
             self.results[value] = defaults
-
-    def process_java_version(self, i):
-        if "Use --illegal-access=warn to enable warnings of further illegal reflective access operations" in i:
-            self.results["java_version"] = "11"  # based on reflective access message
-        elif "java.lang.Thread.run" in i:
-            if "java.lang.Thread.run(Thread.java:748) [?:" in i:
-                self.results["java_version"] = "8"  # based on stacktrace
-            elif "java.lang.Thread.run(Thread.java:834)" in i:
-                self.results["java_version"] = "11"  # based on stacktrace
-            elif "java.lang.Thread.run(Thread.java:832)" in i:
-                self.results["java_version"] = "14+"  # based on stacktrace
