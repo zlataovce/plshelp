@@ -10,17 +10,17 @@ class Paste:
     def identify(self):
         if self.url is None:
             return False
-        if "https://paste.gg" in self.url and "raw" in self.url:
+        if self.url.startswith("https://paste.gg") and "raw" in self.url:
             r = requests.get(self.url)
             return r.text.splitlines()
-        elif "https://paste.gg" in self.url and "raw" not in self.url:
+        elif self.url.startswith("https://paste.gg") and "raw" not in self.url:
             url = self.pastegg()
             if url is False:
                 return False
             else:
                 r = requests.get(url)
                 return r.text.splitlines()
-        elif "https://pastebin.com" in self.url:
+        elif self.url.startswith("https://pastebin.com"):
             paste_id = self.url.split("pastebin.com/")[1]
             r = requests.get("https://pastebin.com/raw/" + paste_id)
             return r.text.splitlines()
