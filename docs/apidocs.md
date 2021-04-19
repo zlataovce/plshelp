@@ -394,4 +394,6 @@
   - latest_build: A string/integer showing the latest build of the indicated plugin, can be null if it cannot be determined
   - attributes: An array with warnings from plshelp gravity for this plugin, can be null if there are no warnings
 - paper_build: An integer showing the latest build of Paper (can be null if the server software isn't Paper)
+- current_paper_build: An integer showing the build of Paper that is installed on the server (can be null if the server software isn't Paper)
+- outdated_paper: An integer showing by how many builds is the installed Paper behind the latest, the result is 0 if Paper is up-to-date (can be null if the server software isn't Paper)
 - error_causing_plugins: An array containing the troublesome plugin names

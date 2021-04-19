@@ -30,7 +30,7 @@ def latest_release_github(joburl):
 def latest_paper_build(minecraft_ver):
     url = "https://papermc.io/api/v2/projects/paper/versions/" + minecraft_ver
     r = requests.get(url)
-    if r.status_code == 200:
+    if r.ok:
         return r.json()["builds"][-1]
     else:
         return None
