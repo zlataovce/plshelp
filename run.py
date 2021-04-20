@@ -187,7 +187,8 @@ def show():
                                    sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.args.get("url"),
                                    domain=config['FLASK']['Domain'], errors=re["errors"],
                                    gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"],
-                                   cracked_plugins=re["cracked_plugins"])
+                                   cracked_plugins=re["cracked_plugins"], java_version=re["java_version"],
+                                   paper_outdated=re["paper_outdated"])
     if request.method == "POST":
         try:
             re = parsev2(request.form.get("url"), webresponse=False)  # getting the data
@@ -200,7 +201,8 @@ def show():
                                sbw_wrongshop=re["sbw_wrongshop"], paste_url=request.form.get("url"),
                                domain=config['FLASK']['Domain'], errors=re["errors"],
                                gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"],
-                               cracked_plugins=re["cracked_plugins"])
+                               cracked_plugins=re["cracked_plugins"], java_version=re["java_version"],
+                               paper_outdated=re["paper_outdated"])
 
 
 # a flask wrapper for the show.html template with a different input method
@@ -227,7 +229,8 @@ def showv2():
                                    sbw_wrongshop=re["sbw_wrongshop"], paste_url=pasteurl,
                                    domain=config['FLASK']['Domain'], errors=re["errors"],
                                    gravityplugins=re["gravity_classified_plugins"], paperbuild=re["paper_build"],
-                                   cracked_plugins=re["cracked_plugins"])
+                                   cracked_plugins=re["cracked_plugins"], java_version=re["java_version"],
+                                   paper_outdated=re["paper_outdated"])
         except KeyError:
             return "Incomplete logs!", 400
 

@@ -97,9 +97,18 @@
 					{% if paperbuild is none %}
 						<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}} (latest build couldn't be determined)</div>
 					{% else %}
-						<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}} (latest is {{paperbuild}})</div>
+						{% if paper_outdated == 0 %}
+							<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}} (up to date)</div>
+						{% else %}
+							<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}} (latest is {{paperbuild}}, behind by {{paper_outdated}})</div>
+						{% endif %}
 					{% endif %}
 					<div id="info3" class="subtitle-light"><strong>Reloaded:</strong> {{reload}}</div>
+					{% if java_version is not none %}
+						<div id="info4" class="subtitle-light"><strong>Java version:</strong> {{java_version}}</div>
+					{% else %}
+						<div id="info4" class="subtitle-light"><strong>Java version:</strong> couldn't be determined</div>
+					{% endif %}
 					<div id="info4" class="subtitle-light"><strong>Needs newer Java:</strong> {{needs_newer_java}}</div>
 					{% if cracked_plugins %}
 						<div class="text-danger">Server is likely running cracked plugins.</div>
