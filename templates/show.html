@@ -14,9 +14,9 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			if (localStorage.getItem("logs") === null) {
-				let logs = [];
+				var logs = [];
 			} else {
-				let logs = JSON.parse(localStorage.getItem("logs"));
+				var logs = JSON.parse(localStorage.getItem("logs"));
 			}
 			if (!logs.includes("{{paste_url}}")) {
 				logs.push("{{paste_url}}")
