@@ -42,7 +42,7 @@ def parsev1(url, webresponse=True):
     d.dprint("QUERY: Started processing")
     time = datetime.datetime.now()  # measuring the time for the debugger, gonna integrate this into the debugger later
     paster = Paste(url)
-    file = paster.identify()  # identyfing the paste url and getting it
+    file = paster.identify()  # identifying the paste url and getting it
     if file is False:
         if webresponse:
             return "Needs URL parameter or specified URL isn't a paste.gg/pastebin.com URL.", 400  # webresponse error

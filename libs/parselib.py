@@ -20,7 +20,12 @@ class Parse:
             "classified_errors": {},
             "minecraft_version": None,
             "server_software": None,
-            "java_version": None
+            "java_version": None,
+            "needs_newer_java": False,
+            "reload": False,
+            "sbw_wrongshop": False,
+            "cracked_plugins": False,
+            "offline_mode": False
         }  # premature results defining
 
     def analysis(self):
@@ -101,13 +106,10 @@ class Parse:
                 for x in self.crackedkeywords:  # checking if line contains keywords from cracked plugins
                     if x in i:
                         self.results["cracked_plugins"] = True
+                if "SERVER IS RUNNING IN OFFLINE/INSECURE MODE!" in i:
+                    self.results["offline_mode"] = True
             except AttributeError:
                 continue
-        # setting defaults for unfilled results
-        self.check_defaults_bool('needs_newer_java')
-        self.check_defaults_bool('reload')
-        self.check_defaults_bool('sbw_wrongshop')
-        self.check_defaults_bool('cracked_plugins')
         for i in self.results["plugins_altver"]:
             self.results["classified_errors"][i] = []  # making defaults for classified_errors
         for i in self.results["plugins_altver"]:
@@ -143,12 +145,6 @@ class Parse:
         return self.results
 
     # functions below are for setting defaults
-    def check_defaults_bool(self, value):
-        try:
-            if self.results[value] is True:
-                pass
-        except KeyError:
-            self.results[value] = False
 
     def check_defaults(self, value, defaults):
         try:

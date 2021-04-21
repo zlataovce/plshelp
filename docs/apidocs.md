@@ -159,7 +159,8 @@
   "reload": true,
   "needs_newer_java": false,
   "sbw_wrongshop": false,
-  "cracked_plugins": false
+  "cracked_plugins": false,
+  "offline_mode": true
 }
 ```
 
@@ -174,6 +175,7 @@
  - sbw_wrongshop: A boolean exclusive to ScreamingBedWars, indicating if the shop.yml is configured wrongly, can be true of false
  - cracked_plugins: A boolean indicating if the server is running cracked plugins
  - java_version: A string indicating the Java version of the server (can be 8, 11, 14+ or null)
+ - offline_mode: A boolean indicating if the server is running in offline mode, can be true or false (defaults to false)
 
 
 ## /api/v2
@@ -344,6 +346,7 @@
   "needs_newer_java": false,
   "sbw_wrongshop": false,
   "cracked_plugins": false,
+  "offline_mode": true,
   "gravity_classified_plugins": {
     "BedWars": {
       "latest_build": 786,
@@ -405,3 +408,4 @@
 - paper_outdated: An integer showing by how many builds is the installed Paper behind the latest, the result is 0 if Paper is up-to-date (can be null if the server software isn't Paper)
 - error_causing_plugins: An array containing the troublesome plugin names
 - java_version: A string indicating the Java version of the server (can be 8, 11, 14+ or null)
+- offline_mode: A boolean indicating if the server is running in offline mode, can be true or false (defaults to false)
