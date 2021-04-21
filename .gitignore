@@ -130,3 +130,5 @@ dmypy.json
 
 poetry.lock
 pyproject.toml
+
+apikeys.json

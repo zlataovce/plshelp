@@ -14,7 +14,7 @@ from libs.apis import latest_paper_build
 from libs.classifylib import classify
 from libs.parselib import Parse
 from libs.pastes import Paste
-from libs.utils import sanitize, jsonf, fetch_updates, Debugger
+from libs.utils import sanitize, jsonf, fetch_updates, Debugger, generate_key
 
 load_dotenv()  # loading the .env
 
@@ -31,8 +31,9 @@ if config["UPDATE"].getboolean("GravityAutoUpdate"):
                   config["UPDATE"]["LangFile"])  # fetching the updates if autoupdate is enabled
 
 # loading the json files
-gravity = jsonf("gravity.json")
-lang = jsonf("lang.json")
+gravity = jsonf(config["UPDATE"]["GravityFile"])
+lang = jsonf(config["UPDATE"]["LangFile"])
+apikeys = jsonf("apikeys.json")
 
 
 # webresponse=True makes the functions return a Flask Response object
@@ -133,8 +134,13 @@ def upload_paste_thread(text):
 # a flask wrapper for the api function
 @app.route('/api/v1', methods=["GET", "POST"])
 def web_parsev1():
+    global apikeys, d
     try:
-        return parsev1(request.args.get("url"))
+        for key, value in apikeys.items():
+            if value == request.args.get("key"):
+                d.dprint("API access from " + key)
+                return parsev1(request.args.get("url"))
+        return abort(401)
     except libs.exceptions.InvalidURL:
         return abort(400)
 
@@ -142,8 +148,13 @@ def web_parsev1():
 # a flask wrapper for the api function
 @app.route('/api/v2', methods=["GET", "POST"])
 def web_parsev2():
+    global apikeys, d
     try:
-        return parsev2(request.args.get("url"))
+        for key, value in apikeys.items():
+            if value == request.args.get("key"):
+                d.dprint("API access from " + key)
+                return parsev2(request.args.get("url"))
+        return abort(401)
     except libs.exceptions.InvalidURL:
         return abort(400)
 
@@ -236,6 +247,8 @@ def showv2():
 
 
 try:  # responsible for switching the ports when in a Heroku deployment
+    if argv[1] == "addapikey":
+        apikeys = generate_key(argv[2], apikeys)
     if argv[1] == 'heroku':
         app.run(host="0.0.0.0", port=environ.get("PORT"))  # running the flask app
     else:
