@@ -5,6 +5,7 @@
 ### URL Arguments
 
  - url: A paste.gg/pastebin.com URL.
+ - key: An API key, can be generated if arguments *addapikey (friendlyname)* is passed when starting up
 
 ### Response
 
@@ -180,6 +181,7 @@
 ### URL Arguments
 
 - url: A paste.gg/pastebin.com URL.
+- key: An API key, can be generated if arguments *addapikey (friendlyname)* is passed when starting up
 
 ### Response
 
