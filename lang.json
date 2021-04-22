@@ -9,6 +9,7 @@
 		"packetwarn": "Mixed client vs server versions can sometimes cause packet-related issues. (packetwarn)",
 		"bedrock": "Bedrock clients are unsupportable. Please do all debugging with a Java Edition client. (bedrock)",
 		"authbreaker": "Known for breaking authentication. (authbreaker)",
-		"projectsplit": "This plugin is developed in multiple locations. plshelp is checking for the latest one. (projectsplit)"
+		"projectsplit": "This plugin is developed in multiple locations. plshelp is checking for the latest one. (projectsplit)",
+		"requiredver": "This plugin needs an older/newer version of Minecraft to function. (requiredver)"
 	}
 }
