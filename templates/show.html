@@ -128,7 +128,7 @@
 								{% endfor %}
 							{% else %}
 								{% for i in plugins %}
-									{% if key in i %}
+									{% if key + " v" in i %}
 										<div class="subtitle-light" id="info5"><strong>{{i}}</strong> (latest build {{value['latest_build']}})</div>
 										{% for i in value['attributes'] %}
 											<div class="text-danger">{{i}}</div>
@@ -138,7 +138,7 @@
 							{% endif %}
 						{% elif value['attributes'] is none and value['latest_build'] is not none %}
 							{% for i in plugins %}
-								{% if key in i %}
+								{% if key + " v" in i %}
 									<div class="subtitle-light" id="info5"><strong>{{i}}</strong> (latest build {{value['latest_build']}})</div>
 								{% endif %}
 							{% endfor %}
