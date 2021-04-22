@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 
 
 class Paste:
@@ -14,25 +13,27 @@ class Paste:
             r = requests.get(self.url)
             return r.text.splitlines()
         elif self.url.startswith("https://paste.gg/") and "raw" not in self.url:
-            url = self.pastegg()
-            if url is False:
-                return False
+            if "/p/" in self.url:
+                if "https" in self.url:
+                    pasteid = self.url.replace("https://paste.gg/p/", "").split("/")[1]
+                else:
+                    pasteid = self.url.replace("http://paste.gg/p/", "").split("/")[1]
             else:
-                r = requests.get(url)
-                return r.text.splitlines()
+                if "https" in self.url:
+                    pasteid = self.url.replace("https://paste.gg/", "")
+                else:
+                    pasteid = self.url.replace("http://paste.gg/", "")
+
+            r = requests.get("https://api.paste.gg/v1/pastes/" + pasteid)
+            if not r.ok:
+                return False
+            fileid = r.json()["result"]["files"][0]["id"]
+
+            r2 = requests.get("https://api.paste.gg/v1/pastes/" + pasteid + "/files/" + fileid + "/raw")
+            return r2.text.splitlines()
         elif self.url.startswith("https://pastebin.com/"):
             paste_id = self.url.split("pastebin.com/")[1]
             r = requests.get("https://pastebin.com/raw/" + paste_id)
             return r.text.splitlines()
         else:
-            return False
-
-    def pastegg(self):
-        r = requests.get(self.url)
-        if not r.ok:
-            return False
-        soup = BeautifulSoup(r.content, "html.parser")
-        try:
-            return "https://paste.gg/" + soup.find("a", {"class": "is-pulled-right button"})['href']
-        except TypeError:
             return False
