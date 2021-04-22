@@ -63,7 +63,7 @@ def parsev1(url, webresponse=True):
 
 
 def parsev2(url, webresponse=True, directfile=False):  # api v2
-    global gravity, lang, d
+    global gravity, lang, d, config
     d.dprint("QUERY: Started processing")
     time = datetime.datetime.now()
     if directfile is True:
@@ -82,7 +82,7 @@ def parsev2(url, webresponse=True, directfile=False):  # api v2
     data["gravity_classified_plugins"] = {}
     for i in gravity.keys():  # classifying the plugins by gravity
         if i in data["plugins_altver"]:
-            r = classify(gravity, lang, i)
+            r = classify(gravity, lang, i, data["minecraft_version"], config)
             # changing the layout of the dict
             if isinstance(r, dict):
                 data["gravity_classified_plugins"][i] = r
