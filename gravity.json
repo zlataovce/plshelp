@@ -43,6 +43,54 @@
 			"1.8.8", "1.9.4", "1.10.2", "1.11.2", "1.12.2", "1.13.2", "1.14.4", "1.15.2", "1.16.4", "1.16.5"
 		]
 	},
+	"EssentialsSpawn": {
+		"type": "normal",
+		"ci": "github",
+		"link": "EssentialsX/Essentials",
+		"ver": [
+			"1.8.8", "1.9.4", "1.10.2", "1.11.2", "1.12.2", "1.13.2", "1.14.4", "1.15.2", "1.16.4", "1.16.5"
+		]
+	},
+	"EssentialsChat": {
+		"type": "normal",
+		"ci": "github",
+		"link": "EssentialsX/Essentials",
+		"ver": [
+			"1.8.8", "1.9.4", "1.10.2", "1.11.2", "1.12.2", "1.13.2", "1.14.4", "1.15.2", "1.16.4", "1.16.5"
+		]
+	},
+	"EssentialsAntiBuild": {
+		"type": "normal",
+		"ci": "github",
+		"link": "EssentialsX/Essentials",
+		"ver": [
+			"1.8.8", "1.9.4", "1.10.2", "1.11.2", "1.12.2", "1.13.2", "1.14.4", "1.15.2", "1.16.4", "1.16.5"
+		]
+	},
+	"EssentialsGeo": {
+		"type": "normal",
+		"ci": "github",
+		"link": "EssentialsX/Essentials",
+		"ver": [
+			"1.8.8", "1.9.4", "1.10.2", "1.11.2", "1.12.2", "1.13.2", "1.14.4", "1.15.2", "1.16.4", "1.16.5"
+		]
+	},
+	"EssentialsProtect": {
+		"type": "normal",
+		"ci": "github",
+		"link": "EssentialsX/Essentials",
+		"ver": [
+			"1.8.8", "1.9.4", "1.10.2", "1.11.2", "1.12.2", "1.13.2", "1.14.4", "1.15.2", "1.16.4", "1.16.5"
+		]
+	},
+	"EssentialsXMPP": {
+		"type": "normal",
+		"ci": "github",
+		"link": "EssentialsX/Essentials",
+		"ver": [
+			"1.8.8", "1.9.4", "1.10.2", "1.11.2", "1.12.2", "1.13.2", "1.14.4", "1.15.2", "1.16.4", "1.16.5"
+		]
+	},
 	"CommandNPC": {
 		"type": "warn",
 		"desc": "NPC command plugins are no longer needed. Please use Citizens2 and their integrated NPC commands."
