@@ -11,6 +11,7 @@
 		"authbreaker": "Known for breaking authentication. (authbreaker)",
 		"projectsplit": "This plugin is developed in multiple locations. plshelp is checking for the latest one. (projectsplit)",
 		"requiredver-newer": "This plugin needs an newer version of Minecraft to function. (requiredver)",
-		"requiredver-older": "This plugin needs an older version of Minecraft to function. (requiredver)"
+		"requiredver-older": "This plugin needs an older version of Minecraft to function. (requiredver)",
+		"packetwarn-old": "Joining a 1.9+ server from a 1.8 client can cause serious packet-related issues. (packetwarn-old)"
 	}
 }
