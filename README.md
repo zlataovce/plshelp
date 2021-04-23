@@ -10,7 +10,7 @@ Ready for deploying on repl.it and Heroku!
 
 ## Disclaimer
 
-The supported versions are ranging 1.8.9 to the newest.  
+The supported versions are ranging from 1.8.9 to the newest.  
 It is not recommended to parse older logs, because they have a different structure and a lot of info may be missing!
 ## Usage
 
