@@ -31,6 +31,7 @@ class Parse:
     def analysis(self):
         start_exception_linecnt = False  # this is just including the lines of exceptions
         exception_linecnt = 0  # for counting the lines of exceptions
+        ancient_ver = False
         for i in self.subject:
             if self.results["java_version"] is None:
                 if "Use --illegal-access=warn to enable warnings of further illegal reflective access operations" in i:
@@ -83,12 +84,19 @@ class Parse:
                         # starting the count
                     except ValueError:  # used as a continue for nested for loops
                         continue
-                elif 'Server thread/ERROR' in i:
+                elif 'Server thread/ERROR' in i or " [SEVERE] " in i:
                     try:
                         for x in self.errorblacklist:  # reading blacklisted errors
                             if x in i:
                                 raise ValueError
-                        self.results["errors"].append(i.rstrip("\n"))  # appending the error
+                        if "[SEVERE] Error occurred while enabling " in i:
+                            plugin = i.split("Error occurred while enabling ")[1].split(" (Is")[0]
+                            if plugin not in self.results["plugins"]:
+                                self.results["plugins"].append(plugin)
+                            if plugin.split(' v')[0] not in self.results["plugins_altver"]:
+                                self.results["plugins_altver"].append(plugin.split(' v')[0])
+                        else:
+                            self.results["errors"].append(i.rstrip("\n"))  # appending the error
                     except ValueError:  # used as a continue for nested for loops
                         continue
                 elif '/rl' in i or '/reload' in i:
@@ -108,8 +116,12 @@ class Parse:
                         self.results["cracked_plugins"] = True
                 if "SERVER IS RUNNING IN OFFLINE/INSECURE MODE!" in i:
                     self.results["offline_mode"] = True
+                if "[INFO] Starting minecraft server version 1.0.0" in i:  # checking for ancient versions
+                    ancient_ver = True
             except AttributeError:
                 continue
+        if ancient_ver:
+            self.results["minecraft_version"] = self.results["server_software"].replace("git-Bukkit-", "").split("-")[0]
         for i in self.results["plugins_altver"]:
             self.results["classified_errors"][i] = []  # making defaults for classified_errors
         for i in self.results["plugins_altver"]:
