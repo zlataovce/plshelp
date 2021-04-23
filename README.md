@@ -7,6 +7,10 @@
 plshelp is an API (and a [website](https://plshelp.mkdev.ml)) for parsing Minecraft server logs which extracts useful information, e.g plugins list, plugin/server errors, server version / software, and more! It even has the ability to share your parsed logs with people too!  
 
 Ready for deploying on repl.it and Heroku!
+
+## Disclaimer
+
+The supported versions are 1.8.9 - newest. It is not recommended to parse older logs, because they have a different structure and a lot of info may be missing!
 ## Usage
 
 ```
