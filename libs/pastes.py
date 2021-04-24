@@ -35,5 +35,11 @@ class Paste:
             paste_id = self.url.split("pastebin.com/")[1]
             r = requests.get("https://pastebin.com/raw/" + paste_id)
             return r.text.splitlines()
+        elif self.url.startswith("https://cdn.discordapp.com/attachments"):
+            if self.url.endswith(".txt") or self.url.endswith(".log"):
+                r = requests.get(self.url)
+                return r.text.splitlines()
+            else:
+                return False
         else:
             return False
