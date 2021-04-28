@@ -91,7 +91,10 @@ def parsev2(url, webresponse=True, directfile=False):  # api v2
     if data["server_software"] is not None:  # getting the latest build of Paper
         if "Paper" in data["server_software"]:
             data["paper_build"] = latest_paper_build(data["minecraft_version"])
-            data["current_paper_build"] = int(data["server_software"].replace("git-Paper-", ""))
+            try:
+                data["current_paper_build"] = int(data["server_software"].replace("git-Paper-", ""))
+            except ValueError:
+                data["current_paper_build"] = None
             data["paper_outdated"] = data["paper_build"] - data["current_paper_build"]
         else:
             data["paper_build"] = None
