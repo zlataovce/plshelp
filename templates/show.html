@@ -99,6 +99,8 @@
 					{% else %}
 						{% if paper_outdated == 0 %}
 							<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}} (up to date)</div>
+						{% elif paper_outdated is none %}
+							<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}} (latest is {{paperbuild}})</div>
 						{% else %}
 							<div id="info2" class="subtitle-light"><strong>Server software:</strong> {{server_software}} (latest is {{paperbuild}}, behind by {{paper_outdated}})</div>
 						{% endif %}
