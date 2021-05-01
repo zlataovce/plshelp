@@ -37,7 +37,7 @@ class Parse:
                 if "Use --illegal-access=warn to enable warnings of further illegal reflective access operations" in i:
                     self.results["java_version"] = "11"  # based on reflective access message
                 elif "java.lang.Thread.run" in i:
-                    if "java.lang.Thread.run(Thread.java:748) [?:" in i:
+                    if "java.lang.Thread.run(Thread.java:748) [?:" in i or "java.lang.Thread.run(Unknown Source) [?:1.8.0_271]" in i:
                         self.results["java_version"] = "8"  # based on stacktrace
                     elif "java.lang.Thread.run(Thread.java:834)" in i:
                         self.results["java_version"] = "11"  # based on stacktrace
