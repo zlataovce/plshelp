@@ -47,7 +47,7 @@ class Parse:
                 if start_exception_linecnt is True:  # ignoring classifying and just appending the lines
                     # if they are a part of an exception
                     if exception_linecnt <= 6:
-                        if "at " in i or "java.lang" or "java.util" in i:
+                        if "at " in i or "java.lang" in i or "java.util" in i:
                             self.results["errors"].append(i.rstrip("\n").replace("\t", ""))
                             exception_linecnt += 1
                             continue
@@ -73,7 +73,7 @@ class Parse:
                     except ValueError:  # used as a continue for nested for loops
                         continue
                 elif 'generated an exception' in i or "Could not pass event" in i or 'Exception' in i or "Could not " \
-                                                                                                         "load '" or "/FATAL]" in i:  # reading blacklisted exceptions
+                                                                                                         "load '" in i or "/FATAL]" in i:  # reading blacklisted exceptions
                     try:
                         for x in self.errorblacklist:  # reading blacklisted exceptions
                             if x in i:
